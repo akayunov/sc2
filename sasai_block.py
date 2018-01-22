@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import sys
+from copy import deepcopy
 from pprint import pprint
 from PIL import Image
 from operator import getitem
@@ -139,7 +140,7 @@ SLASH = [
 
 GAP_SIZE_BETWEEN_NUMBER_GROUP = 20
 
-LEFT = 1520
+LEFT = 1520  # TODO more space for bigger number for late game ~1300
 RIGHT = 1830
 UP = 23
 BOTTOM = 33
@@ -204,13 +205,28 @@ def get_pixels(im_path):
 
 
 def count_similarity(n_arr, num_templ):
-    # TODO add shift ot better fit
     count = 0
     for i in range(min(len(n_arr), len(num_templ[0]))):
         for k in range(min(len(n_arr[0]), len(num_templ[0][0]))):
             if n_arr[i][k] == num_templ[0][i][k]:
-                count += 1
-    return float(count) / num_templ[2], num_templ[1]
+                count += 1 if n_arr[i][k] == 0 else 1.5  # add weight for 1
+    # check with shift if sizes is not equal
+    n_templ = deepcopy(num_templ[0])
+    while len(n_arr) != len(n_templ):
+        count_intermediate = 0
+        if len(n_arr) < len(n_templ):
+            n_arr = [[0] * HIGH] + n_arr
+        else:
+            n_templ = [[0] * HIGH] + n_templ
+        for i in range(min(len(n_arr), len(n_templ))):
+            for k in range(min(len(n_arr[0]), len(n_templ[0]))):
+                if n_arr[i][k] == n_templ[i][k]:
+                    count_intermediate += 1 if n_arr[i][k] == 0 else 1.5  # add weight for 1
+        if count_intermediate > count:
+            count = count_intermediate
+
+    # devide on maximum pictures to avoid confusing with small templ like 1 with many zeros when zeros hit become bigger then 1 hit
+    return float(count) / (HIGH * max([len(n_arr), len(n_templ)])), num_templ[1]
 
 
 def parse_numbers(n_arr):
