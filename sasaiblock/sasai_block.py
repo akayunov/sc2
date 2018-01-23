@@ -259,6 +259,6 @@ def get_numbers(pixels_):
     groups.append(numbers)
     return groups
 
-
-pixels = get_pixels('sc.png')
-print(get_numbers(pixels))
+if __name__ == '__main__':
+    pixels = get_pixels('resourses/sc.png')
+    print(get_numbers(pixels))
