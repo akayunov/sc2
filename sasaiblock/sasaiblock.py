@@ -179,8 +179,8 @@ def print_debug(pixels_):
         sys.stdout.write('\n')
 
 
-def get_pixels(im_path):
-    im = Image.open(im_path)
+def get_pixels(image):
+    im = image
 
     region = im.crop((LEFT, UP, RIGHT, BOTTOM))
     # region.show('xxx', 'eog')
@@ -260,5 +260,5 @@ def get_numbers(pixels_):
     return groups
 
 if __name__ == '__main__':
-    pixels = get_pixels('resourses/sc.png')
+    pixels = get_pixels(Image.open('resourses/sc.png'))
     print(get_numbers(pixels))
