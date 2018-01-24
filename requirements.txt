@@ -1,5 +1,13 @@
-EasyProcess==0.2.3
-Pillow==5.0.0
-playsound==1.2.2
-pyscreenshot==0.4.2
-
+attrs (17.4.0)
+EasyProcess (0.2.3)
+funcsigs (1.0.2)
+Pillow (5.0.0)
+pip (9.0.1)
+playsound (1.2.2)
+pluggy (0.6.0)
+py (1.5.2)
+pyscreenshot (0.4.2)
+pytest (3.3.2)
+setuptools (38.4.0)
+six (1.11.0)
+wheel (0.30.0)
