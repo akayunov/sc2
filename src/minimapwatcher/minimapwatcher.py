@@ -15,10 +15,12 @@ class MiniMapWatcher:
         self.previous_values = [0, 0, 0, 0, 0, 0, 0, 0, 0]
         self.current_values = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
+        # TODO move to base class
         self.red_pixels = [None] * (self.RIGHT - self.LEFT)
         for p in range(self.RIGHT - self.LEFT):
             self.red_pixels[p] = [0] * (self.BOTTOM - self.UP)
 
+    # TODO move to base class
     def _get_pixels(self, image):
         im = image
 
