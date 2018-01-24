@@ -30,4 +30,4 @@ def test_production_queue(test_input, expected):
     production_queue.parse_regions(Image.open(os.path.dirname(__file__) + '/resourses/' + test_input))
     assert expected == production_queue.production_queues
     # for sound alarm do
-    # production_queue.alarm()
+    production_queue.alarm()

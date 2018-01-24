@@ -56,6 +56,6 @@ class MiniMapWatcher:
         self.current_values = result
 
     def alarm(self):
-        for k in range(len(self.current_values)):
-            if self.previous_values[k] < self.current_values[k]:
-                playsound(os.path.dirname(__file__) + '/resourses/enemy_in_' + str(k) + 'sector.mp3')
+        for k in range(1, 1 + len(self.current_values)):
+            if self.previous_values[k - 1] < self.current_values[k - 1]:
+                playsound(os.path.join(os.path.dirname(__file__), 'resourses', 'enemy_in_' + str(k) + '_sector.mp3'))

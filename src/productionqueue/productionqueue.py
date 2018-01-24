@@ -87,10 +87,10 @@ class ProductionQueue:
     def alarm(self):
         for factory in self.production_queues:
             # TODO say which queue is overloaded exactly
-            if len(filter(lambda x: x == 254, factory)) > 2 and len(factory) == 5:
-                playsound(os.path.dirname(__file__) + '/resourses/queue_is_overflowing.mp3')
-            if len(filter(lambda x: x == 254, factory)) > 4 and len(factory) == 8:
-                playsound(os.path.dirname(__file__) + '/resourses/queue_is_overflowing.mp3')
+            if len(list(filter(lambda x: x == 254, factory))) > 2 and len(factory) == 5:
+                playsound(os.path.join(os.path.dirname(__file__), 'resourses', 'queue_is_overflowing.mp3'))
+            if len(list(filter(lambda x: x == 254, factory))) > 4 and len(factory) == 8:
+                playsound(os.path.join(os.path.dirname(__file__), 'resourses', 'queue_is_overflowing.mp3'))
 
 if __name__ == '__main__':
     start__wsgi_app()
