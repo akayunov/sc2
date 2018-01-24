@@ -1,3 +1,5 @@
 .cache
 v/
 .idea
+__pycache__
+*.pyc
