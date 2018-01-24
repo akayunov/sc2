@@ -10,3 +10,5 @@
 10) remove /home/akayunov/sc2/src/__init__.py and move utils to somewhere
 https://autohotkey.com/boards/viewtopic.php?t=3256
 https://gist.githubusercontent.com/tmplinshi/9948634/raw/b6a6a3b7120999d03fcc6b884d7ed6dbacfbd327/WinHttpRequest.ahk
+11) построить максиму фактори чтоб протестировать чекалку очереди заказов
+12) load all mp3 in memory for performance
