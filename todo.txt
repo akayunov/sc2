@@ -6,3 +6,5 @@
 6) see todo in files
 7) адаптировать под разное разрешение экранов
 8) https://www.naturalreaders.com/online/   tracy speed1
+9) add /bin directory and move main to it
+10) remove /home/akayunov/sc2/src/__init__.py and move utils to somewhere
