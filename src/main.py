@@ -2,7 +2,7 @@ import traceback
 import time
 
 import pyscreenshot as ps
-from .sasaiblock import sasaiblock
+from .sasaiblock import sasayblock
 from .minimapwatcher import MiniMapWatcher
 
 minimap_watcher_alarm_period = 5  # seconds
