@@ -23,7 +23,7 @@ def simple_app(environ, start_response):
 
 def start__wsgi_app():
     httpd = make_server('', 8000, simple_app)
-    print "Serving on port 8000..."
+    print("Serving on port 8000...")
     httpd.serve_forever()
 
 
