@@ -8,3 +8,5 @@
 8) https://www.naturalreaders.com/online/   tracy speed1
 9) add /bin directory and move main to it
 10) remove /home/akayunov/sc2/src/__init__.py and move utils to somewhere
+https://autohotkey.com/boards/viewtopic.php?t=3256
+https://gist.githubusercontent.com/tmplinshi/9948634/raw/b6a6a3b7120999d03fcc6b884d7ed6dbacfbd327/WinHttpRequest.ahk
