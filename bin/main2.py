@@ -61,7 +61,7 @@ def start_background():
 
 if __name__ == '__main__':
     try:
-        start_background()
+        start_wsgi()
     except KeyboardInterrupt:
         # send kill don't need await
         os.kill(pid, 15)
