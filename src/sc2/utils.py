@@ -1,6 +1,7 @@
 import abc
 import sys
 
+
 def print_debug(pixels_):
     for ii in range(len(pixels_[0])):
         for kk in range(len(pixels_)):
@@ -16,7 +17,7 @@ class Watcher(object):
         raise NotImplementedError()
 
     @abc.abstractmethod
-    def parse_regions(self):
+    def parse_regions(self, image):
         raise NotImplementedError()
 
     @abc.abstractmethod

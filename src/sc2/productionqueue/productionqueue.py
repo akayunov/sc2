@@ -1,31 +1,6 @@
 import os
-import pyscreenshot as ps
 from playsound import playsound
 from sc2.utils import Watcher
-from wsgiref.simple_server import make_server
-
-# TODO move it to bin
-# A relatively simple WSGI application. It's going to print out the
-# environment dictionary after being updated by setup_testing_defaults
-
-
-def simple_app(environ, start_response):
-    status = '200 OK'
-    headers = [('Content-type', 'text/plain')]
-
-    start_response(status, headers)
-    im = ps.grab(childprocess=False)
-    ProductionQueue().parse_regions(im)
-    return []
-
-
-# TODO move it to bin
-
-
-def start__wsgi_app():
-    httpd = make_server('', 8000, simple_app)
-    print("Serving on port 8000...")
-    httpd.serve_forever()
 
 
 class ProductionQueue(Watcher):
@@ -96,6 +71,3 @@ class ProductionQueue(Watcher):
                 playsound(os.path.join(os.path.dirname(__file__), 'resourses', 'queue_is_overflowing.mp3'))
             if len(list(filter(lambda x: x == 254, factory))) > 4 and len(factory) == 8:
                 playsound(os.path.join(os.path.dirname(__file__), 'resourses', 'queue_is_overflowing.mp3'))
-
-if __name__ == '__main__':
-    start__wsgi_app()
