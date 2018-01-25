@@ -4,7 +4,7 @@ import pytest
 from PIL import Image
 
 sys.path = [os.path.abspath(os.path.dirname(__file__) + '../../../src/')] + sys.path
-from minimapwatcher import MiniMapWatcher
+from sc2.minimapwatcher import MiniMapWatcher
 
 
 @pytest.mark.parametrize("test_input, expected", [

@@ -4,7 +4,7 @@ import pytest
 from PIL import Image
 
 sys.path = [os.path.abspath(os.path.dirname(__file__) + '../../../src/')] + sys.path
-from sasayblock import SasayBlock
+from sc2.sasayblock import SasayBlock
 
 
 @pytest.mark.parametrize("test_input, expected", [

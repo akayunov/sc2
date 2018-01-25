@@ -4,7 +4,7 @@ import pytest
 from PIL import Image
 
 sys.path = [os.path.abspath(os.path.dirname(__file__) + '../../../src/')] + sys.path
-from productionqueue import ProductionQueue
+from sc2.productionqueue import ProductionQueue
 
 
 @pytest.mark.parametrize("test_input, expected", [

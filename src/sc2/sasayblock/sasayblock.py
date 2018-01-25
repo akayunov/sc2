@@ -1,6 +1,7 @@
 import os.path
 from copy import deepcopy
 from playsound import playsound
+from sc2.utils import Watcher
 from functools import partial
 
 ZERO = [
@@ -144,7 +145,8 @@ def _convert_by_diag(high, a):
     return r
 
 
-class SasayBlock:
+class SasayBlock(Watcher):
+    NAME = 'sasayblock'
     GAP_SIZE_BETWEEN_NUMBER_GROUP = 20
     # TODO improve for diff screen resolution
     LEFT = 1520
@@ -173,6 +175,9 @@ class SasayBlock:
         # check HIGH of all templ
         if filter(lambda x: len(x) != self.HIGH, self.ALL_NUMBERS):
             raise Exception()
+
+    def name(self):
+        return self.NAME
 
     def _get_pixels(self, image):
         region = image.crop((self.LEFT, self.UP, self.RIGHT, self.BOTTOM))

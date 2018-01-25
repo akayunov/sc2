@@ -1,6 +1,7 @@
 import os
 import pyscreenshot as ps
 from playsound import playsound
+from sc2.utils import Watcher
 from wsgiref.simple_server import make_server
 
 # TODO move it to bin
@@ -27,7 +28,8 @@ def start__wsgi_app():
     httpd.serve_forever()
 
 
-class ProductionQueue:
+class ProductionQueue(Watcher):
+    NAME = 'productionqueue'
     # TODO improve for diff screen resolution
     LEFT = 370
     RIGHT = 1360
@@ -38,6 +40,9 @@ class ProductionQueue:
 
     def __init__(self):
         self.production_queues = []
+
+    def name(self):
+        return self.NAME
 
     # TODO move to base class
     def parse_regions(self, image):

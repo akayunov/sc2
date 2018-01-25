@@ -1,5 +1,9 @@
 import traceback
 import time
+import os.path
+
+import sys
+sys.path = [os.path.abspath(os.path.dirname(__file__) + '../../../src/')] + sys.path
 
 import pyscreenshot as ps
 from sasayblock import SasayBlock
@@ -20,6 +24,7 @@ while 1:
     im = ps.grab(childprocess=False)
     for watcher in watchers:
         try:
+            print('=' * 8, watcher[0].NAME, '=' * 8)
             watcher[0].parse_regions(im)
             if watcher[1] <= 0:
                 watcher[0].alarm()

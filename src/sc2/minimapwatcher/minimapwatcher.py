@@ -1,10 +1,13 @@
 import os
 from playsound import playsound
+from sc2.utils import Watcher
 
 # for example of usage see ../../test/minimapwatcher/test_minimapwatcher.py
 
 
-class MiniMapWatcher:
+class MiniMapWatcher(Watcher):
+    # TODO add abc class and do it as abstract property
+    NAME = 'minimapwatcher'
     # TODO improve for diff screen resolution
     LEFT = 20
     RIGHT = 275 + LEFT
@@ -19,6 +22,9 @@ class MiniMapWatcher:
         self.red_pixels = [None] * (self.RIGHT - self.LEFT)
         for p in range(self.RIGHT - self.LEFT):
             self.red_pixels[p] = [0] * (self.BOTTOM - self.UP)
+
+    def name(self):
+        return self.NAME
 
     # TODO move to base class
     def _get_pixels(self, image):
