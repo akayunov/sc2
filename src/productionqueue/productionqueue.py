@@ -45,7 +45,7 @@ class ProductionQueue:
 
         region = im.crop((self.LEFT, self.UP, self.RIGHT, self.BOTTOM))
         # region.show('xxx', 'eog')
-        # region.save('sb.png')
+        region.save('sb.png')
 
         rgb_im = region.convert('RGB')
         # colors
@@ -54,7 +54,7 @@ class ProductionQueue:
         # start position (297, 57)
         x_start_position = 295
         y_start_position = 57
-        line_high = 55
+        line_high = 57
 
         some_structure = []
         marker_count = 0

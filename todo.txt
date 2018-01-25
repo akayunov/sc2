@@ -12,3 +12,5 @@ https://autohotkey.com/boards/viewtopic.php?t=3256
 https://gist.githubusercontent.com/tmplinshi/9948634/raw/b6a6a3b7120999d03fcc6b884d7ed6dbacfbd327/WinHttpRequest.ahk
 11) построить максиму фактори чтоб протестировать чекалку очереди заказов
 12) load all mp3 in memory for performance
+13) проблема в хоткее с контролом, почему то тока буква прокидывается ну или я чего не понял
+14) проверить что можно послать добывать по минимапе
