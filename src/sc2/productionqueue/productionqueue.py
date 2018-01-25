@@ -27,6 +27,7 @@ class ProductionQueue(Watcher):
         # region.show('xxx', 'eog')
         # region.save('sb.png')
 
+        # TODO check that I realy need to convert to RGB, may be it alredy RGB
         rgb_im = region.convert('RGB')
         # colors
         # 64 64 64 - empty slot

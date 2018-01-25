@@ -23,3 +23,12 @@ class Watcher(object):
     @abc.abstractmethod
     def alarm(self):
         raise NotImplementedError()
+
+
+def get_screenshot(obj):
+    if getattr(obj, 'grab'):
+        # pyscreenshot
+        return obj.grab(childprocess=False)
+    elif getattr(obj, 'screenshot'):
+        # pyautogui
+        return obj.screenshot()

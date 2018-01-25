@@ -1,14 +1,21 @@
+links
+8) https://www.naturalreaders.com/online/   tracy speed1
+10) remove /home/akayunov/sc2/src/__init__.py and move utils to somewhere
+    https://autohotkey.com/boards/viewtopic.php?t=3256
+    https://gist.githubusercontent.com/tmplinshi/9948634/raw/b6a6a3b7120999d03fcc6b884d7ed6dbacfbd327/WinHttpRequest.ahk
+
+on job
+12) load all mp3 in memory for performance
 1) заказ юнитов - то что сейчас выделено ставишь на 0 потом выбираешь фактори разбираешь очереди по картинке и делаешь заказ и везвращаешься на группу 0 - (дважды на 0 давишь)
 2) строить суплаи по предварительной разметке - либо в начале игры либо на лотве, можно попробовать сверяться с минимапой типа а все ли пзиции для суплаев заняты и если есть пустые то там и строить
 5) pytest посмотреть чо там с sys.path
 6) see todo in files
 7) адаптировать под разное разрешение экранов
-8) https://www.naturalreaders.com/online/   tracy speed1
-9) add /bin directory and move main to it
-10) remove /home/akayunov/sc2/src/__init__.py and move utils to somewhere
-https://autohotkey.com/boards/viewtopic.php?t=3256
-https://gist.githubusercontent.com/tmplinshi/9948634/raw/b6a6a3b7120999d03fcc6b884d7ed6dbacfbd327/WinHttpRequest.ahk
-12) load all mp3 in memory for performance
+8) проигрывать звуки в отдельном процессе что не тормозить wsgi хендлер
+
+on home
 13) проблема в хоткее с контролом, почему то тока буква прокидывается ну или я чего не понял
 14) проверить что можно послать рабоччего добывать по минимапе
-15) в main.py запускать как демона чек продакшн queue
+15) что там в todo2
+16) проверить pyautogui не быстрее ли и удалить pyscreenshot если так
+17) почитать что может pyautogui

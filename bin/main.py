@@ -2,7 +2,8 @@ import traceback
 import time
 import os
 import sys
-import pyscreenshot as ps
+# import pyscreenshot as ps
+import pyautogui as ps
 
 sys.path = [os.path.abspath(os.path.dirname(__file__) + '/../src/')] + sys.path
 
@@ -11,6 +12,7 @@ from wsgiref.simple_server import make_server
 from sc2.sasayblock import SasayBlock
 from sc2.minimapwatcher import MiniMapWatcher
 from sc2.productionqueue import ProductionQueue
+from sc2.utils import get_screenshot
 
 # check sasai block and resourses
 sasay_block = SasayBlock()
@@ -35,7 +37,7 @@ else:
         status = '200 OK'
         headers = [('Content-type', 'text/plain')]
         start_response(status, headers)
-        im = ps.grab(childprocess=False)
+        im = get_screenshot(ps)
         production_queue_watcher.parse_regions(im)
         production_queue_watcher.alarm()
         return []
@@ -49,7 +51,7 @@ else:
 def start():
     while 1:
         time.sleep(1)
-        im = ps.grab(childprocess=False)
+        im = get_screenshot(ps)
         for watcher in watchers:
             try:
                 print('=' * 8, watcher[0].NAME, '=' * 8)
