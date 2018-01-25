@@ -4,16 +4,19 @@ import pytest
 from PIL import Image
 
 sys.path = [os.path.abspath(os.path.dirname(__file__) + '../../../src/')] + sys.path
-from minimapwatcher import MiniMapWatcher
+from sasayblock import SasayBlock
 
 
 @pytest.mark.parametrize("test_input, expected", [
-    ('sc.png', [574, 0, 0, 15]),
+    ('1.png', [574, 0, [0, 15]]),
+    ('3.png', [41, 0, [13, 15]]),
+    ('4.png', [747, 2263, [108, 134]]),
+    ('5.png', [931, 2320, [108, 134]]),
+    ('many-starports.png', [3984, 81, [129, 200]])
 ])
 def test_sasay_block(test_input, expected):
-    pass
-    # minimap_watcher = MiniMapWatcher()
-    # minimap_watcher.parse_regions(Image.open(os.path.dirname(__file__) + '/resourses/' + test_input))
-    # assert expected == minimap_watcher.current_values
+    sasay_block = SasayBlock()
+    sasay_block.parse_regions(Image.open(os.path.dirname(__file__) + '/resourses/' + test_input))
+    assert expected == [sasay_block.minerals, sasay_block.gas, sasay_block.supply]
     # for sound alarm do
-    # minimap_watcher.alarm()
+    # sasay_block.alarm()

@@ -45,7 +45,7 @@ class ProductionQueue:
 
         region = im.crop((self.LEFT, self.UP, self.RIGHT, self.BOTTOM))
         # region.show('xxx', 'eog')
-        region.save('sb.png')
+        # region.save('sb.png')
 
         rgb_im = region.convert('RGB')
         # colors

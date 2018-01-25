@@ -1,3 +1,3 @@
-from .sasayblock import get_pixels
+from .sasayblock import SasayBlock
 
-__all_ = [get_pixels]
+__all__ = [SasayBlock]
