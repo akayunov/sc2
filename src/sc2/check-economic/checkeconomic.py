@@ -8,13 +8,14 @@ import os
 from sc2.utils import Watcher
 
 
+
 class CheckEconomic(Watcher):
     NAME = 'minimapwatcher'
     # TODO improve for diff screen resolution
     LEFT = 980
     RIGHT = 60 + LEFT
-    UP = 310
-    BOTTOM = UP + 15
+    UP = 313
+    BOTTOM = UP + 10
 
     def __init__(self):
         # TODO move to base class
@@ -38,7 +39,7 @@ class CheckEconomic(Watcher):
         for j in range(self.RIGHT - self.LEFT):
             for k in range(self.BOTTOM - self.UP):
                 r, g, b = rgb_im.getpixel((j, k))
-                if r >= 191 and g == 0 and b == 0:
+                if 200 >= r >= 160 and 200 >= g >= 160 and 200 >= b >= 160:
                     self.red_pixels[j][k] = 1
                 else:
                     self.red_pixels[j][k] = 0
@@ -51,16 +52,22 @@ class CheckEconomic(Watcher):
         pass
 
 
+from sc2.sasayblock import SasayBlock
+from sc2.utils import print_debug
+SasayBlock.LEFT = 980
+SasayBlock.RIGHT = 60 + 980
+SasayBlock.UP = 313
+SasayBlock.BOTTOM = 313 + 10
 
 image = Image.open(os.path.dirname(__file__) + '/resourses/' + 'cc-on-center.png')
 ce = CheckEconomic()
-ce.parse_regions(image)
+ce._get_pixels(image)
+print_debug(ce.red_pixels)
+# ce.parse_regions(image)
 
-from sc2.utils import print_debug
-from sc2.sasayblock import SasayBlock
-SasayBlock.LEFT = 0
-SasayBlock.UP = 0
-SasayBlock.RIGHT = 500
-SasayBlock.BOTTOM = 500
 sb = SasayBlock()
-print_debug(sb._get_pixels(image))
+sb.parse_regions(image)
+
+
+
+
