@@ -52,7 +52,7 @@ class LobbyInfo(Watcher):
 
         # let's think what x + size - 1 and y + size - 1 is always exists
         for xi in range(x, x + size + 1):  # +1 because we start from 1 not 0
-            for yi in range(y, y + size + 1):   # +1 because we start from 1 not 0
+            for yi in range(y, y + size + 1):  # +1 because we start from 1 not 0
                 counter_square += self.blue_pixels[xi][yi]
         if counter_square == square:
             # remove this blue pixels for don't check it again in next iteration
@@ -76,3 +76,11 @@ class LobbyInfo(Watcher):
                     elif self.check_blue_region(j, k, 2):
                         # mineral is found
                         self.minimap['minerals'].append((j, k))
+        self.calculate_main_build_position()
+
+    def get_nearest_exp_position(self, x, y):
+        # just return coordinates by main build position
+        pass
+
+    def calculate_main_build_position(self):
+        pass
