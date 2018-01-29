@@ -12,7 +12,8 @@ from sc2.sasayblock import SasayBlock
     ('3.png', [41, 0, [13, 15]]),
     ('4.png', [747, 2263, [108, 134]]),
     ('5.png', [931, 2320, [108, 134]]),
-    ('many-starports.png', [3984, 81, [129, 200]])
+    ('many-starports.png', [3984, 81, [129, 200]]),
+    ('cc-17-worker.png', [963, 0, [17, 23]])
 ])
 def test_sasay_block(test_input, expected):
     sasay_block = SasayBlock()

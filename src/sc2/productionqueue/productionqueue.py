@@ -27,8 +27,6 @@ class ProductionQueue(Watcher):
         # region.show('xxx', 'eog')
         # region.save('sb.png')
 
-        # TODO check that I realy need to convert to RGB, may be it alredy RGB
-        rgb_im = region.convert('RGB')
         # colors
         # 64 64 64 - empty slot
         # 254 254 254 - occupied slot
@@ -42,7 +40,7 @@ class ProductionQueue(Watcher):
         previous_marker = 0
         for l in range(3):  # 3 line it's rare case then thera will be more then 27 factory
             for p in range(x_start_position, self.RIGHT - self.LEFT):
-                r, g, b = rgb_im.getpixel((p, y_start_position + line_high * l))
+                r, g, b = region.getpixel((p, y_start_position + line_high * l))
                 if r == g == b == 254:
                     current_marker = 254
                 elif r == g == b == 64:

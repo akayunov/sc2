@@ -1,25 +1,28 @@
 import os.path
 from copy import deepcopy
-from playsound import playsound
+import sys
+
+sys.path = [os.path.abspath(os.path.dirname(__file__) + '../../../')] + sys.path
 from sc2.utils import Watcher
 from functools import partial
 
 ZERO = [
-    '00001110000',
-    '01111111110',
-    '11000000011',
-    '11000000011',
-    '11000000011',
-    '11000000011',
-    '11000000011',
-    '11000000011',
-    '01111111110',
-    '00001110000'
+    '01111111100',
+    '11000000010',
+    '10000000011',
+    '10000000001',
+    '10000000001',
+    '10000000001',
+    '10000000001',
+    '10000000001',
+    '11000000010',
+    '01111111100'
+
 ]
 ONE = [
     '00011',
     '00111',
-    '11001',
+    '01001',
     '10001',
     '00001',
     '00001',
@@ -28,7 +31,7 @@ ONE = [
     '00001',
     '00001'
 ]
-TWO = [
+TWO = [  # TODO
     '00001111000',
     '01110000110',
     '01000000011',
@@ -41,100 +44,102 @@ TWO = [
     '11111111111'
 ]
 THREE = [
-    '00011111000',
-    '01110000110',
-    '01000000010',
-    '00000000010',
-    '00000111110',
-    '00000000110',
-    '00000000011',
-    '11000000011',
-    '01100000110',
-    '00011111100'
+    '0011111110',
+    '1100000001',
+    '1000000001',
+    '0000000001',
+    '0000111111',
+    '0000000001',
+    '0000000001',
+    '1000000001',
+    '1100000001',
+    '0111111110'
 ]
 FOUR = [
     '00000001100',
     '00000011100',
-    '00001100100',
-    '00011000100',
+    '00000100100',
+    '00001000100',
+    '00110000100',
     '01100000100',
     '11000000100',
-    '11000000110',
     '11111111111',
     '00000000100',
     '00000000100'
 ]
 
 FIVE = [
-    '1111111111',
-    '1000000000',
-    '1000000000',
-    '1000000000',
-    '1111111110',
-    '0000000011',
-    '0000000011',
-    '1000000011',
-    '1110000110',
-    '0001111000'
+    '11111111110',
+    '11000000000',
+    '10000000000',
+    '11111111100',
+    '11000000010',
+    '00000000011',
+    '00000000001',
+    '10000000011',
+    '11000000010',
+    '01111111100'
 ]
 SIX = [
-    '000111000',
-    '111000111',
-    '100000001',
-    '100000000',
-    '100011100',
-    '111000011',
-    '100000001',
-    '100000001',
-    '110000111',
-    '000111000'
+    '0011111110',
+    '0100000001',
+    '1100000001',
+    '1000000000',
+    '1011111110',
+    '1100000001',
+    '1000000001',
+    '1000000001',
+    '0100000001',
+    '0011111110'
+
 ]
 SEVEN = [
-    '11111111111',
-    '11111111111',
-    '00000000110',
-    '00000001100',
-    '00000001000',
-    '00000011000',
-    '00000110000',
-    '00001100000',
-    '00011000000',
-    '00110000000']
+    '1111111111',
+    '0000000001',
+    '0000000010',
+    '0000000110',
+    '0000000100',
+    '0000001000',
+    '0000010000',
+    '0000100000',
+    '0001000000',
+    '0011000000'
+]
 EIGHT = [
-    '0011110000',
-    '1100000110',
-    '1000000010',
-    '1000000010',
-    '1111111110',
-    '1100000110',
-    '1000000011',
-    '1000000011',
-    '1100000110',
-    '0011111100'
+    '0111111110',
+    '1100000001',
+    '1000000001',
+    '1100000001',
+    '0111111111',
+    '1100000001',
+    '1000000001',
+    '1000000001',
+    '1100000001',
+    '0111111110'
 ]
 NINE = [
-    '00011111000',
-    '01100001110',
-    '01000000010',
-    '01000000010',
-    '01100000111',
-    '00011100011',
-    '00000000010',
-    '11000000010',
-    '01100001110',
-    '00011110000'
+    '0011111110',
+    '0100000001',
+    '1000000001',
+    '1000000001',
+    '1100000001',
+    '0111111101',
+    '0000000001',
+    '1000000001',
+    '0100000001',
+    '0011111110'
 ]
 SLASH = [
-    '000000001',
-    '000000010',
-    '000000100',
-    '000001000',
-    '000010000',
-    '000100000',
-    '000100000',
-    '001000000',
-    '010000000',
-    '100000000'
+    '00000001',
+    '00000001',
+    '00000010',
+    '00000100',
+    '00001000',
+    '00010000',
+    '00100000',
+    '01000000',
+    '01000000',
+    '10000000'
 ]
 
 
@@ -145,15 +150,20 @@ def _convert_by_diag(high, a):
     return r
 
 
-class SasayBlock(Watcher):
-    NAME = 'sasayblock'
-    GAP_SIZE_BETWEEN_NUMBER_GROUP = 20
+class CheckEconomic(Watcher):
+    NAME = 'check economic'
     # TODO improve for diff screen resolution
-    LEFT = 1520
-    RIGHT = 1870
-    UP = 23
-    BOTTOM = 33
-    HIGH = BOTTOM - UP
+    HIGH = 10
+
+    CC_LEFT = 983
+    CC_RIGHT = 70 + CC_LEFT
+    CC_UP = 313
+    CC_BOTTOM = CC_UP + HIGH
+
+    GAZ_LEFT = 993
+    GAZ_RIGHT = GAZ_LEFT + 40
+    GAZ_UP = 318
+    GAZ_BOTTOM = GAZ_UP + HIGH
 
     ALL_NUMBERS = [ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, SLASH]
 
@@ -168,13 +178,23 @@ class SasayBlock(Watcher):
         )
     )
 
-    def __init__(self):
-        self.minerals = 0
-        self.gas = 0
-        self.supply = [0, 0]
+    def __init__(self, build_type):
+        self.worker_count = []
         # check HIGH of all templ
         if filter(lambda x: len(x) != self.HIGH, self.ALL_NUMBERS):
             raise Exception()
+        if build_type == 'cc':
+            self.LEFT = CheckEconomic.CC_LEFT
+            self.RIGHT = CheckEconomic.CC_RIGHT
+            self.UP = CheckEconomic.CC_UP
+            self.BOTTOM = CheckEconomic.CC_BOTTOM
+        elif build_type == 'gaz':
+            self.LEFT = CheckEconomic.GAZ_LEFT
+            self.RIGHT = CheckEconomic.GAZ_RIGHT
+            self.UP = CheckEconomic.GAZ_UP
+            self.BOTTOM = CheckEconomic.GAZ_BOTTOM
+        else:
+            raise Exception('Wrong build  type')
 
     def name(self):
         return self.NAME
@@ -190,7 +210,12 @@ class SasayBlock(Watcher):
         for i in range(self.RIGHT - self.LEFT):
             for k in range(self.BOTTOM - self.UP):
                 r, g, b = region.getpixel((i, k))
-                if r >= 235 and g >= 235 and b >= 235:
+                if (
+                        # white
+                            (200 >= r >= 160 and 200 >= g >= 160 and 200 >= b >= 160) or
+                        # red
+                            (195 >= r >= 190 and 40 >= g >= 30 and 40 >= b >= 30)
+                ):
                     pixels[i][k] = 1
                 else:
                     pixels[i][k] = 0
@@ -230,32 +255,14 @@ class SasayBlock(Watcher):
 
     def parse_regions(self, image):
         pixels = self._get_pixels(image)
-        numbers = []
-        groups = []
         n = []
-        gap_size = 0
         for i, col in enumerate(pixels):
             if not filter(None, pixels[i]):
-                # find empty gap
-                gap_size += 1
                 if n:
-                    numbers.append(self._parse_numbers(n))
+                    self.worker_count.append(self._parse_numbers(n))
                 n = []
             else:
                 n.append(pixels[i])
-                gap_size = 0
-            if gap_size > 10 and numbers:
-                groups.append(numbers)
-                numbers = []
-        self.minerals = int(''.join(map(str, (groups[0]))))
-        self.gas = int(''.join(map(str, (groups[1]))))
-        self.supply = list(map(int, ''.join(map(str, (groups[2]))).split('/')))
 
     def alarm(self):
-        if self.supply[1] < 200:
-            if self.minerals > 500:
-                playsound(os.path.join(os.path.dirname(__file__), 'resourses', 'too_many_minerals.mp3'))
-            if self.gas > 500:
-                playsound(os.path.join(os.path.dirname(__file__), 'resourses', 'too_many_vespen_gas.mp3'))
-            if float(self.supply[1] - self.supply[0]) / self.supply[1] < 0.15:
-                playsound(os.path.join(os.path.dirname(__file__), 'resourses', 'sasai_block.mp3'))
+        pass

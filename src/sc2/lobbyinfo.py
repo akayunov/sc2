@@ -30,11 +30,9 @@ class LobbyInfo(Watcher):
         # region.show('xxx', 'eog')
         # region.save('sb.png')
 
-        rgb_im = region.convert('RGB')
-
         for j in range(self.RIGHT - self.LEFT):
             for k in range(self.BOTTOM - self.UP):
-                r, g, b = rgb_im.getpixel((j, k))
+                r, g, b = region.getpixel((j, k))
                 if r == 126 and g == 191 and b == 241:
                     self.blue_pixels[j][k] = 1
                 else:
