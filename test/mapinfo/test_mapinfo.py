@@ -7,29 +7,14 @@ sys.path = [os.path.abspath(os.path.dirname(__file__) + '../../../src/')] + sys.
 from sc2.mapinfo import MapInfo
 
 
-@pytest.mark.parametrize("test_input, expected, expected_group", [
+@pytest.mark.parametrize("test_input, expected, expected_group, input_coordinates, expected_nearest_resourses_group", [
     (
             'one-expand.png',
             {'gazes': [(19, 15), (26, 22)], 'minerals': [(2, 28), (4, 23), (4, 26), (4, 30), (6, 21), (8, 19), (13, 19), (15, 17)]},
-            [{'gazes': [(19, 15), (26, 22)], 'minerals': [(15, 17), (13, 19), (8, 19), (4, 23), (4, 26), (4, 30), (6, 21), (2, 28)]}]
-    )
-])
-def test_map_info1(test_input, expected, expected_group):
-    # some hacks for more explicit test pictures
-    MapInfo.LEFT = 0
-    MapInfo.RIGHT = 100
-    MapInfo.UP = 0
-    MapInfo.BOTTOM = 100
-
-    map_info = MapInfo()
-    map_info.parse_regions(Image.open(os.path.dirname(__file__) + '/resourses/' + test_input))
-
-    assert expected == map_info.minimap
-    assert expected_group == map_info.expand_groups
-    map_info.alarm()
-
-
-@pytest.mark.parametrize("test_input, expected, expected_group", [
+            [{'gazes': [(19, 15), (26, 22)], 'minerals': [(15, 17), (13, 19), (8, 19), (4, 23), (4, 26), (4, 30), (6, 21), (2, 28)]}],
+            (16, 32),
+            {'gazes': [(19, 15), (26, 22)], 'minerals': [(15, 17), (13, 19), (8, 19), (4, 23), (4, 26), (4, 30), (6, 21), (2, 28)]}
+    ),
     (
             'two-expand.png',
             {'gazes': [(19, 15), (26, 22), (59, 28), (84, 26)],
@@ -39,10 +24,12 @@ def test_map_info1(test_input, expected, expected_group):
                 {'gazes': [(59, 28), (84, 26)], 'minerals': [(83, 23), (81, 21), (76, 19), (71, 19), (74, 21), (69, 21), (63, 23), (62, 24)]},
                 {'gazes': [(19, 15), (26, 22)], 'minerals': [(15, 17), (13, 19), (8, 19), (4, 23), (4, 26), (4, 30), (6, 21), (2, 28)]}
 
-            ]
+            ],
+            (70, 30),
+            {'gazes': [(59, 28), (84, 26)], 'minerals': [(83, 23), (81, 21), (76, 19), (71, 19), (74, 21), (69, 21), (63, 23), (62, 24)]}
     )
 ])
-def test_map_info2(test_input, expected, expected_group):
+def test_map_info(test_input, expected, expected_group, input_coordinates, expected_nearest_resourses_group):
     # some hacks for more explicit test pictures
     MapInfo.LEFT = 0
     MapInfo.RIGHT = 100
@@ -54,6 +41,7 @@ def test_map_info2(test_input, expected, expected_group):
 
     assert expected == map_info.minimap
     assert expected_group == map_info.expand_groups
+    assert expected_nearest_resourses_group == map_info.get_nearest_exp_resourses_group(*input_coordinates)
     map_info.alarm()
 
 

@@ -1,3 +1,4 @@
+import math
 from copy import deepcopy
 from functools import partial
 from sc2.utils import Watcher
@@ -98,10 +99,12 @@ class MapInfo(Watcher):
                 minerals = filter(lambda x: x not in group, minerals)
             self.expand_groups.append({'minerals': group, 'gazes': []})
 
+        i = 0
         gazes = deepcopy(self.minimap['gazes'])
         for group in self.expand_groups:
             item_was_added = 1
-            while item_was_added:
+            while item_was_added and i < 10000:
+                i += 1
                 item_was_added = 0
                 for gaze_base in gazes:
                     if min(map(partial(self.distance, 'mineral_to_gaz', gaze_base), group['minerals'])) < 4:
@@ -128,9 +131,14 @@ class MapInfo(Watcher):
         else:
             raise Exception('Unknown resourses type')
 
-    def get_nearest_exp_position(self, x, y):
-        # just return coordinates by main build position
-        pass
+    def get_nearest_exp_resourses_group(self, x, y):
+        result = (1000000000, self.expand_groups[0])
+        for group in self.expand_groups:
+            for el in group['gazes'] + group['minerals']:
+                distance = math.sqrt((x - el[0]) ** 2 + (y - el[1]) ** 2)
+                if result[0] < distance:
+                    result = (distance, group)
+        return result[1]
 
-    def calculate_main_build_position(self):
+    def calculate_main_building_position(self):
         pass
