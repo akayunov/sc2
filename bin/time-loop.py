@@ -9,6 +9,7 @@ sys.path = [os.path.abspath(os.path.dirname(__file__) + '/../src/')] + sys.path
 from sc2.sasayblock import SasayBlock
 from sc2.minimapwatcher import MiniMapWatcher
 from sc2.productionqueue import ProductionQueue
+from sc2.idleworker import IdleWorker
 
 
 def start_background():
@@ -24,8 +25,11 @@ def start_background():
     production_queue = ProductionQueue()
     production_queue_alarm_period = 5
 
+    # check idle worker
+    idle_worker = IdleWorker()
+    idle_worker_alarm_period = 5
     watchers = [[sasay_block, sasay_block_alarm_period], [minimap_watcher, minimap_watcher_alarm_period],
-                [production_queue, production_queue_alarm_period]]
+                [production_queue, production_queue_alarm_period], [idle_worker, idle_worker_alarm_period]]
     while 1:
         time.sleep(0.5)
         im = pag.screenshot()
