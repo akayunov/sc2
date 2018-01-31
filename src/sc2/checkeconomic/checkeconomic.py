@@ -1,6 +1,7 @@
 import os.path
-from copy import deepcopy
 import sys
+from playsound import playsound
+from copy import deepcopy
 
 sys.path = [os.path.abspath(os.path.dirname(__file__) + '../../../')] + sys.path
 from sc2.utils import Watcher
@@ -264,5 +265,9 @@ class CheckEconomic(Watcher):
             else:
                 n.append(pixels[i])
 
+    def get_missed_worker(self):
+        # [1, 2, '/', 1, 6]
+        return map(int, ''.join(self.worker_count).split('/'))
+
     def alarm(self):
-        pass
+        playsound(os.path.join(os.path.dirname(__file__), 'resourses', 'change_control_in_5_sec.mp3'))

@@ -23,3 +23,10 @@ class Watcher(object):
     @abc.abstractmethod
     def alarm(self):
         raise NotImplementedError()
+
+
+class WatcherProperties(object):
+    def __init__(self, watcher, initial_alarm_period):
+        self.watcher = watcher
+        self.initial_alarm_period = initial_alarm_period
+        self.curent_alarm_period = initial_alarm_period
