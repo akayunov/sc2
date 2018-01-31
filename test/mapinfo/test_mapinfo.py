@@ -7,13 +7,14 @@ sys.path = [os.path.abspath(os.path.dirname(__file__) + '../../../src/')] + sys.
 from sc2.mapinfo import MapInfo
 
 
-@pytest.mark.parametrize("test_input, expected, expected_group, input_coordinates, expected_nearest_resourses_group", [
+@pytest.mark.parametrize("test_input, expected, expected_group, input_coordinates, expected_nearest_resourses_group, main_building_position", [
     (
             'one-expand.png',
             {'gazes': [(19, 15), (26, 22)], 'minerals': [(2, 28), (4, 23), (4, 26), (4, 30), (6, 21), (8, 19), (13, 19), (15, 17)]},
             [{'gazes': [(19, 15), (26, 22)], 'minerals': [(15, 17), (13, 19), (8, 19), (4, 23), (4, 26), (4, 30), (6, 21), (2, 28)]}],
             (16, 32),
-            {'gazes': [(19, 15), (26, 22)], 'minerals': [(15, 17), (13, 19), (8, 19), (4, 23), (4, 26), (4, 30), (6, 21), (2, 28)]}
+            {'gazes': [(19, 15), (26, 22)], 'minerals': [(15, 17), (13, 19), (8, 19), (4, 23), (4, 26), (4, 30), (6, 21), (2, 28)]},
+            (17, 30)
     ),
     (
             'two-expand.png',
@@ -26,10 +27,11 @@ from sc2.mapinfo import MapInfo
 
             ],
             (70, 30),
-            {'gazes': [(59, 28), (84, 26)], 'minerals': [(83, 23), (81, 21), (76, 19), (71, 19), (74, 21), (69, 21), (63, 23), (62, 24)]}
+            {'gazes': [(59, 28), (84, 26)], 'minerals': [(83, 23), (81, 21), (76, 19), (71, 19), (74, 21), (69, 21), (63, 23), (62, 24)]},
+            (74, 34)
     )
 ])
-def test_map_info(test_input, expected, expected_group, input_coordinates, expected_nearest_resourses_group):
+def test_map_info(test_input, expected, expected_group, input_coordinates, expected_nearest_resourses_group, main_building_position):
     # some hacks for more explicit test pictures
     MapInfo.LEFT = 0
     MapInfo.RIGHT = 100
@@ -42,6 +44,7 @@ def test_map_info(test_input, expected, expected_group, input_coordinates, expec
     assert expected == map_info.minimap
     assert expected_group == map_info.expand_groups
     assert expected_nearest_resourses_group == map_info.get_nearest_exp_resourses_group(*input_coordinates)
+    assert main_building_position == map_info.calculate_main_building_position(expected_nearest_resourses_group)
     map_info.alarm()
 
 

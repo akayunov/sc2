@@ -11,6 +11,7 @@ from sc2.idleworker import IdleWorker
     ('cc-3-worker.png', [9]),
     ('cc-4-worker.png', [8]),
     ('cc-5-worker.png', [7]),
+    ('cc-6-worker.png', [6]),
     ('cc-7-worker.png', [5]),
     ('cc-8-worker.png', [4]),
     ('cc-9-worker.png', [3]),

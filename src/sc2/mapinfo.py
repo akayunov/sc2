@@ -80,7 +80,9 @@ class MapInfo(Watcher):
                         self.minimap['minerals'].append((j, k))
 
         self.group_resources_by_expand()
-        self.calculate_main_build_position()
+
+    def get_item_coordinate_on_whole_screen(self, el):
+        return el[0] + self.LEFT, el[1] + self.UP
 
     def group_resources_by_expand(self):
         # if distance between object smaller then 4 all of them in one expand group
@@ -140,5 +142,70 @@ class MapInfo(Watcher):
                     result = (distance, group)
         return result[1]
 
-    def calculate_main_building_position(self):
-        pass
+    def calculate_main_building_position(self, group):
+        gr = group['minerals'] + group['gazes']
+        max_x = max(max(el[0] + 2 for el in group['minerals']), max(el[0] + 6 for el in group['gazes']))
+        min_x = min((el[0] for el in gr))
+        max_y = max(max(el[1] + 2 for el in group['minerals']), max(el[1] + 6 for el in group['gazes']))
+        min_y = min((el[1] for el in gr))
+        # print('MAX', max_x, max_y, min_x, min_y)
+        mineral_field = []
+        for i in range(max_x - min_x):
+            mineral_field.append([0] * (max_y - min_y))
+        # 7  = 6 + 1, 6 - distance between mineral and cc, 1 - line where will be boarder of cc
+        for el in group['minerals']:
+            normalize_coordinates = (el[0] - min_x, el[1] - min_y)
+            for i in range(normalize_coordinates[0] - 7, normalize_coordinates[0] + 7 + 2):  # 2 - size mineral field
+                for k in range(normalize_coordinates[1] - 7, normalize_coordinates[1] + 7 + 2):  # 2 - size mineral field
+                    # print('COOR', i, k)
+                    if 0 < i < max_x - min_x and 0 < k < max_y - min_y:
+                        mineral_field[i][k] = 1
+        for el in group['gazes']:
+            normalize_coordinates = (el[0] - min_x, el[1] - min_y)
+            for i in range(normalize_coordinates[0] - 7, normalize_coordinates[0] + 7 + 6):  # 6 - size mineral field
+                for k in range(normalize_coordinates[1] - 7, normalize_coordinates[1] + 7 + 6):  # 6 - size mineral field
+                    if 0 < i < max_x - min_x and 0 < k < max_y - min_y:
+                        mineral_field[i][k] = 1
+
+        for el in group['minerals']:
+            normalize_coordinates = (el[0] - min_x, el[1] - min_y)
+            for i in range(normalize_coordinates[0] - 6, normalize_coordinates[0] + 6 + 2):  # 2 - size mineral field
+                for k in range(normalize_coordinates[1] - 6, normalize_coordinates[1] + 6 + 2):  # 2 - size mineral field
+                    if 0 < i < max_x - min_x and 0 < k < max_y - min_y:
+                        mineral_field[i][k] = 2
+        for el in group['gazes']:
+            normalize_coordinates = (el[0] - min_x, el[1] - min_y)
+            for i in range(normalize_coordinates[0] - 6, normalize_coordinates[0] + 6 + 6):  # 6 - size gaz field
+                for k in range(normalize_coordinates[1] - 6, normalize_coordinates[1] + 6 + 6):  # 6 - size gaz field
+                    if 0 < i < max_x - min_x and 0 < k < max_y - min_y:
+                        mineral_field[i][k] = 2
+
+        # # for debug
+        for el in group['minerals']:
+            normalize_coordinates = (el[0] - min_x, el[1] - min_y)
+            for i in range(normalize_coordinates[0], normalize_coordinates[0] + 2):  # 2 - size mineral field
+                for k in range(normalize_coordinates[1], normalize_coordinates[1] + 2):  # 2 - size mineral field
+                    if 0 < i < max_x - min_x and 0 < k < max_y - min_y:
+                        mineral_field[i][k] = ' '
+        for el in group['gazes']:
+            normalize_coordinates = (el[0] - min_x, el[1] - min_y)
+            for i in range(normalize_coordinates[0], normalize_coordinates[0] + 6):  # 6 - size gaz field
+                for k in range(normalize_coordinates[1], normalize_coordinates[1] + 6):  # 6 - size gaz field
+                    if 0 < i < max_x - min_x and 0 < k < max_y - min_y:
+                        mineral_field[i][k] = ' '
+        # from sc2.utils import print_debug
+        # print_debug(mineral_field)
+        # now all element with value == 1 is allowed for building
+        # and we search point what is nearest to center
+        center_coordinates = ((max_x - min_x) / 2, (max_y - min_y) / 2)
+        # print('CENTER',center_coordinates)
+        result = (1000000, (0, 0))
+        for i in range(len(mineral_field)):
+            for k in range(len(mineral_field[i])):
+                if mineral_field[i][k] == 1:
+                    distance = math.sqrt((i - center_coordinates[0]) ** 2 + (k - center_coordinates[1]) ** 2)
+                    # print('DISTANEC', distance, i, k)
+                    if distance  <= result[0]:
+                        result = (distance, (i, k))
+        # print('RESULT',result)
+        return result[1][0] + min_x, result[1][0] + min_y
