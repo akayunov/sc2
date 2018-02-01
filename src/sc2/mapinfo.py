@@ -124,8 +124,9 @@ class MapInfo(object):
             # return max from x or y distance, 2 = mineral size
             return max([abs(item_1_gaz[0] - item_2_mineral[0]) - 2, abs(item_1_gaz[1] - item_2_mineral[1]) - 2])
         elif item_type == 'mineral_to_gaz':
+            # TODO (item_1_gaz[0] - item_2_mineral[0]) > 0  is equal to item_1_gaz[0] > item_2_mineral[0]
             x_distance = (item_1_gaz[0] - item_2_mineral[0] - 2) if (item_1_gaz[0] - item_2_mineral[0]) > 0 else (item_2_mineral[0] - item_1_gaz[0] - 6)
-            y_distance = (item_1_gaz[1] - item_2_mineral[1] - 6) if (item_1_gaz[1] - item_2_mineral[1]) > 0 else (item_2_mineral[1] - item_1_gaz[1] - 2)
+            y_distance = (item_1_gaz[1] - item_2_mineral[1] - 2) if (item_1_gaz[1] - item_2_mineral[1]) > 0 else (item_2_mineral[1] - item_1_gaz[1] - 6)
             return max([x_distance, y_distance])
         elif item_type == 'gaz_to_gaz':
             return max([abs(item_1_gaz[0] - item_2_mineral[0]) - 6, abs(item_1_gaz[1] - item_2_mineral[1]) - 6])
