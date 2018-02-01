@@ -1,5 +1,3 @@
-import traceback
-import pyautogui as pag
 import keyboard
 import mouse
 import threading
@@ -75,18 +73,17 @@ class KeyEventCommand:
         keyboard.send('e')
 
     def send_command_to_units_by_one(self, hotkey, command):
-        global GLOBAL_WHILE_FLAG
-        GLOBAL_WHILE_FLAG = True
-        keyboard.remove_hotkey('`')
+        self.while_flag = True
+        keyboard.remove_hotkey(hotkey)
         # move units to group 9
         keyboard.send('ctrl+9')
         # while we wait it we don't want triger this hotkey again
         mouse.wait(button='right', target_types=('up',))
         is_waited = False
-        while GLOBAL_WHILE_FLAG:
+        while self.while_flag:
             if is_waited:
                 mouse.wait(button='right', target_types=('up',))
-                if not GLOBAL_WHILE_FLAG:
+                if not self.while_flag:
                     break
             mouse_position_x, mouse_position_y = mouse.get_position()
             # click on first unit

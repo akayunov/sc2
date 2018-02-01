@@ -4,14 +4,14 @@ import sys
 import pyautogui as pag
 import keyboard
 
-sys.path = [os.path.abspath(os.path.dirname(__file__) + '/../src/')] + sys.path
+sys.path = [os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src'))] + sys.path
 
 from sc2.mapinfo import MapInfo
 from sc2.keyeventcommand import KeyEventCommand
 
 
 if __name__ == '__main__':
-    # wait press "s" to start
+    print('Press "s" to start')
     keyboard.wait('s')
     map_info = MapInfo()
     image = pag.screenshot()

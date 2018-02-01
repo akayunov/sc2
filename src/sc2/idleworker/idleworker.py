@@ -1,11 +1,10 @@
 import os.path
 from copy import deepcopy
 from playsound import playsound
-import sys
-
-sys.path = [os.path.abspath(os.path.dirname(__file__) + '../../../')] + sys.path
-from sc2.watcher import Watcher
 from functools import partial
+
+from sc2.watcher import Watcher
+
 
 ONE = [
     '0011',

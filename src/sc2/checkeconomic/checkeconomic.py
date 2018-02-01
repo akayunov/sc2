@@ -1,11 +1,10 @@
 import os.path
-import sys
 from playsound import playsound
 from copy import deepcopy
-
-sys.path = [os.path.abspath(os.path.dirname(__file__) + '../../../')] + sys.path
-from sc2.watcher import Watcher
 from functools import partial
+
+from sc2.watcher import Watcher
+
 
 ZERO = [
     '01111111100',
@@ -32,7 +31,7 @@ ONE = [
     '00001',
     '00001'
 ]
-TWO = [  # TODO
+TWO = [
     '00001111000',
     '01110000110',
     '01000000011',

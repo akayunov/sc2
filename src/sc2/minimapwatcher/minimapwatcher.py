@@ -2,11 +2,8 @@ import os
 from playsound import playsound
 from sc2.watcher import Watcher
 
-# for example of usage see ../../test/minimapwatcher/test_minimapwatcher.py
-
 
 class MiniMapWatcher(Watcher):
-    # TODO add abc class and do it as abstract property
     NAME = 'minimapwatcher'
     # TODO improve for diff screen resolution
     LEFT = 20

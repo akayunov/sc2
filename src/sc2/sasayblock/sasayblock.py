@@ -1,8 +1,10 @@
 import os.path
 from copy import deepcopy
 from playsound import playsound
-from sc2.watcher import Watcher
 from functools import partial
+
+from sc2.watcher import Watcher
+
 
 ZERO = [
     '00001110000',
