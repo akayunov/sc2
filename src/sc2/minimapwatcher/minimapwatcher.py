@@ -1,6 +1,6 @@
 import os
 from playsound import playsound
-from sc2.utils import Watcher
+from sc2.watcher import Watcher
 
 # for example of usage see ../../test/minimapwatcher/test_minimapwatcher.py
 
@@ -25,6 +25,9 @@ class MiniMapWatcher(Watcher):
 
     def name(self):
         return self.NAME
+
+    def image_is_needed(self):
+        return True
 
     # TODO move to base class
     def _get_pixels(self, image):

@@ -14,7 +14,7 @@ from sc2.minimapwatcher import MiniMapWatcher
 from sc2.productionqueue import ProductionQueue
 from sc2.idleworker import IdleWorker
 from sc2.checkeconomic import CheckEconomic
-from sc2.utils import WatcherProperties
+from sc2.watcher import WatcherProperties
 
 
 def start_background():
@@ -32,15 +32,7 @@ def start_background():
         time.sleep(1)
         im = pag.screenshot()
         for watcher in watchers:
-            try:
-                print('=' * 8, watcher.watcher.NAME, '=' * 8)
-                watcher.watcher.parse_regions(im)
-                if watcher.curent_alarm_period <= 0:
-                    watcher.watcher.alarm()
-                    watcher.curent_alarm_period = watcher.initial_alarm_period
-                watcher.curent_alarm_period -= 1
-            except Exception:
-                print(traceback.format_exc())
+            watcher.run_watcher(image=im)
 
         for watcher in economic_checkers:
             try:

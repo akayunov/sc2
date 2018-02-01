@@ -1,10 +1,9 @@
 import math
 from copy import deepcopy
 from functools import partial
-from sc2.utils import Watcher
 
 
-class MapInfo(Watcher):
+class MapInfo(object):
     NAME = 'map info'
     # TODO improve for diff screen resolution
     LEFT = 20

@@ -1,6 +1,6 @@
 import os
 from playsound import playsound
-from sc2.utils import Watcher
+from sc2.watcher import Watcher
 
 
 class ProductionQueue(Watcher):
@@ -18,6 +18,9 @@ class ProductionQueue(Watcher):
 
     def name(self):
         return self.NAME
+
+    def image_is_needed(self):
+        return True
 
     # TODO move to base class
     def parse_regions(self, image):

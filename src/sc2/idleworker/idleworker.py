@@ -4,7 +4,7 @@ from playsound import playsound
 import sys
 
 sys.path = [os.path.abspath(os.path.dirname(__file__) + '../../../')] + sys.path
-from sc2.utils import Watcher
+from sc2.watcher import Watcher
 from functools import partial
 
 ONE = [
@@ -161,6 +161,9 @@ class IdleWorker(Watcher):
 
     def name(self):
         return self.NAME
+
+    def image_is_needed(self):
+        return True
 
     def _get_pixels(self, image):
         region = image.crop((self.LEFT, self.UP, self.RIGHT, self.BOTTOM))

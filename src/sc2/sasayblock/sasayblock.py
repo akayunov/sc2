@@ -1,7 +1,7 @@
 import os.path
 from copy import deepcopy
 from playsound import playsound
-from sc2.utils import Watcher
+from sc2.watcher import Watcher
 from functools import partial
 
 ZERO = [
@@ -178,6 +178,9 @@ class SasayBlock(Watcher):
 
     def name(self):
         return self.NAME
+
+    def image_is_needed(self):
+        return True
 
     def _get_pixels(self, image):
         region = image.crop((self.LEFT, self.UP, self.RIGHT, self.BOTTOM))
