@@ -6,7 +6,6 @@ from sc2.watcher import Watcher
 
 class ProductionQueue(Watcher):
     NAME = 'productionqueue'
-    # TODO improve for diff screen resolution
     LEFT = 370
     RIGHT = 1360
     UP = 880
@@ -23,7 +22,6 @@ class ProductionQueue(Watcher):
     def image_is_needed(self):
         return True
 
-    # TODO move to base class
     def parse_regions(self, image):
         im = image
 
