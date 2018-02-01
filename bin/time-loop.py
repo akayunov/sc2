@@ -45,7 +45,7 @@ if __name__ == '__main__':
                 #             #     # move by minimap
                 #             #     mouse.move(*position)
                 #             #     # move to screen center
-                #             #     mouse.move(1920/2, 1080/2)
+                #             #     mouse.move(RESOLUTION.x/2, RESOLUTION.y/2)
                 #             #     mouse.click()
                 #             #     # center by building
                 #             #     keyboard.send('ctrl+f')

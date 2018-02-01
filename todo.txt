@@ -1,9 +1,3 @@
-links
-8) https://www.naturalreaders.com/online/   tracy speed1
-10) remove /home/akayunov/sc2/src/__init__.py and move utils to somewhere
-    https://autohotkey.com/boards/viewtopic.php?t=3256
-    https://gist.githubusercontent.com/tmplinshi/9948634/raw/b6a6a3b7120999d03fcc6b884d7ed6dbacfbd327/WinHttpRequest.ahk
-
 on job
 12) load all mp3 in memory for performance
 1) заказ юнитов - то что сейчас выделено ставишь на 0 потом выбираешь фактори разбираешь очереди по картинке и делаешь заказ
@@ -16,10 +10,7 @@ on job
 6) see todo in files
 7) адаптировать под разное разрешение экранов
 8) проигрывать звуки в отдельном процессе что не тормозить обработчит нажатий на кнопки
-10) баз класс сделать для парсалок чисел
-13) раскладка по одному танков и растановка по однуму например геликов или викингов
-14) пересмотреть все - почистить
-добавить кавераджб сетап пивй и ярлычки на гитхабе как для амкупи делал
+9) добавить кавераджб сетап пивй и ярлычки на гитхабе как для амкупи делал
 
 
 on home
@@ -27,8 +18,22 @@ on home
 18) размечать карту просто запоминая кординаты мыши когда стришь вначале на минимапе потом на экране
 
 
+
+
+
+
+
+
+
+
 priority 100
 18) из-за того что поиск менеральных линий идет уже в игре может разобраться не все из-за шумов
     было бы не плохо составить базу заранее а потом уже в лобби определять что это за мапа по базе
     а можно просто забить потому что не разбираются тока минеральная линия моя первая за которой можно и глазами посмотреть
     и вражеская первая которая врядли кому понадобиться
+
+links
+8) https://www.naturalreaders.com/online/   tracy speed1
+10) remove /home/akayunov/sc2/src/__init__.py and move utils to somewhere
+    https://autohotkey.com/boards/viewtopic.php?t=3256
+    https://gist.githubusercontent.com/tmplinshi/9948634/raw/b6a6a3b7120999d03fcc6b884d7ed6dbacfbd327/WinHttpRequest.ahk

@@ -4,6 +4,7 @@ import threading
 
 from sc2.productionqueue import ProductionQueue
 from sc2.watcher import WatcherProperties
+from sc2.const import RESOLUTION
 
 
 class KeyEventCommand:
@@ -42,8 +43,7 @@ class KeyEventCommand:
         new_mouse_position_x, new_mouse_position_y = self.map_info.calculate_main_building_position(resourses_group)
         mouse.move(new_mouse_position_x, new_mouse_position_y)
         mouse.click(button='left')  # move by minimap
-        # TODO improve for different resolution
-        mouse.move(1920 / 2, 1080 / 2)
+        mouse.move(RESOLUTION.x / 2, RESOLUTION.y / 2)
         # we are in center of screen on new expand
         keyboard.send('0')  # choose worker
         keyboard.send('b')
@@ -54,7 +54,7 @@ class KeyEventCommand:
         #    new_mouse_position_x, new_mouse_position_y = map_inf.get_item_coordinate_on_whole_screen(gaz)
         #    mouse.move(new_mouse_position_x, new_mouse_position_y)  # move by minimap
         #    mouse.click()
-        #    mouse.move(1920 / 2, 1080 / 2)
+        #    mouse.move(RESOLUTION.x / 2, RESOLUTION.y / 2)
         #    # we are in center of screen on new gaz
         #    keyboard.send('0')  # choose worker
         #    keyboard.send('b')

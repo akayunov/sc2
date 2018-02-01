@@ -48,6 +48,15 @@ def test_map_info(test_input, expected, expected_group, input_coordinates, expec
     map_info.alarm()
 
 
+def test_map_info_full_map():
+    map_info = MapInfo()
+    map_info.parse_regions(Image.open(os.path.dirname(__file__) + '/resourses/' + 'full_map.png'))
+
+    assert {'gazes': [], 'minerals': []} == map_info.minimap
+    assert [] == map_info.expand_groups
+    # map_info.alarm()
+
+
 @pytest.mark.xfail
 def test_map_info_noisy_by_green():
     # some hacks for more explicit test pictures
