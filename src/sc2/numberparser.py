@@ -1,20 +1,17 @@
-import os.path
 from copy import deepcopy
-from playsound import playsound
 
 from sc2.watcher import Watcher
 
 
 class NumberParser(Watcher):
-    NAME = 'sasayblock'
-    GAP_SIZE_BETWEEN_NUMBER_GROUP = 20
+    NAME = 'number watcher '
 
-    LEFT = 1520
-    RIGHT = 1870
-    UP = 23
-    BOTTOM = 33
-    HIGH = BOTTOM - UP
+    LEFT = 0
+    RIGHT = 0
+    UP = 0
+    BOTTOM = 0
 
+    HIGH = 0
     COLOR_LIMITS = {
         'r': (0, 0),
         'g': (0, 0),
@@ -23,9 +20,7 @@ class NumberParser(Watcher):
     TEMPLATES = {}
 
     def __init__(self):
-        self.minerals = 0
-        self.gas = 0
-        self.supply = [0, 0]
+        pass
 
     def name(self):
         return self.NAME
@@ -44,8 +39,8 @@ class NumberParser(Watcher):
         for i in range(self.RIGHT - self.LEFT):
             for k in range(self.BOTTOM - self.UP):
                 r, g, b = region.getpixel((i, k))
-                if ( self.COLOR_LIMITS['r'][0] >= r >= self.COLOR_LIMITS['r'][1] and self.COLOR_LIMITS['g'][0] >= g >= self.COLOR_LIMITS['g'][1]
-                     and self.COLOR_LIMITS['b'][0] >= b >= self.COLOR_LIMITS['b'][1]):
+                if (self.COLOR_LIMITS['r'][0] >= r >= self.COLOR_LIMITS['r'][1] and self.COLOR_LIMITS['g'][0] >= g >= self.COLOR_LIMITS['g'][1]
+                    and self.COLOR_LIMITS['b'][0] >= b >= self.COLOR_LIMITS['b'][1]):
                     pixels[i][k] = 1
                 else:
                     pixels[i][k] = 0
@@ -84,34 +79,8 @@ class NumberParser(Watcher):
                 result = [sim, num_templ]
         return result[1]
 
-    def parse_regions(self, image):
-        pixels = self._get_pixels(image)
-        numbers = []
-        groups = []
-        n = []
-        gap_size = 0
-        for i, col in enumerate(pixels):
-            if not filter(None, pixels[i]):
-                # find empty gap
-                gap_size += 1
-                if n:
-                    numbers.append(self._parse_numbers(n))
-                n = []
-            else:
-                n.append(pixels[i])
-                gap_size = 0
-            if gap_size > 10 and numbers:
-                groups.append(numbers)
-                numbers = []
-        self.minerals = int(''.join(map(str, (groups[0]))))
-        self.gas = int(''.join(map(str, (groups[1]))))
-        self.supply = list(map(int, ''.join(map(str, (groups[2]))).split('/')))
+    def parse_regions(self, im):
+        raise NotImplementedError()
 
     def alarm(self):
-        if self.supply[1] < 200:
-            if self.minerals > 500:
-                playsound(os.path.join(os.path.dirname(__file__), 'resourses', 'too_many_minerals.mp3'))
-            if self.gas > 500:
-                playsound(os.path.join(os.path.dirname(__file__), 'resourses', 'too_many_vespen_gas.mp3'))
-            if float(self.supply[1] - self.supply[0]) / self.supply[1] < 0.15:
-                playsound(os.path.join(os.path.dirname(__file__), 'resourses', 'sasai_block.mp3'))
+        raise NotImplementedError()
