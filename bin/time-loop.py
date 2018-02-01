@@ -25,11 +25,11 @@ def start_background():
     ]
     economic_checkers = [
         WatcherProperties(CheckEconomic('cc'), 30),
-        WatcherProperties(CheckEconomic('qaz'), 30)
+        WatcherProperties(CheckEconomic('gaz'), 30)
     ]
 
     while 1:
-        time.sleep(0.5)
+        time.sleep(1)
         im = pag.screenshot()
         for watcher in watchers:
             try:
@@ -58,8 +58,8 @@ def start_background():
                     #     keyboard.send('ctrl+f')
                     #     watcher.watcher.parse_regions(im)
                     #     watcher.watcher.get_missed_worker()
-                    #     # направить рабочих с минералов на газы
-                    #     # заказать рабочих
+                    #     put workers from minerals to gaz
+                    #     order new worker
                     watcher.curent_alarm_period = watcher.initial_alarm_period
                 watcher.curent_alarm_period -= 1
             except Exception:

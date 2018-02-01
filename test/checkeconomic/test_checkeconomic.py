@@ -20,7 +20,7 @@ def test_check_economic_cc(test_input, expected):
     ce = CheckEconomic('cc')
     ce.parse_regions(Image.open(os.path.dirname(__file__) + '/resourses/' + test_input))
     assert expected == ce.worker_count
-    ce.alarm()
+    # ce.alarm()
 
 
 # TODO add gaz 4 worker
@@ -32,4 +32,4 @@ def test_check_economic_gaz(test_input, expected):
     ce = CheckEconomic('gaz')
     ce.parse_regions(Image.open(os.path.dirname(__file__) + '/resourses/' + test_input))
     assert expected == ce.worker_count
-    ce.alarm()
+    # ce.alarm()

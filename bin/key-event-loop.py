@@ -22,38 +22,35 @@ def run_watcher(watcher):
     try:
         print('=' * 8, watcher.NAME, '=' * 8)
         watcher.parse_regions(im)
-        if watcher <= 0:
-            watcher.alarm()
-            watcher = 5
-        watcher -= 1
+        watcher.alarm()
     except Exception:
         print(traceback.format_exc())
 
 
 def occupy_expand(map_inf):
     mouse_position_x, mouse_position_y = mouse.get_position()
-    resourses_group = map_inf.get_nearest_exp_resourses_group(mouse_position_x, mouse_position_y)
+    resourses_group = map_inf.get_nearest_exp_resourses_group(mouse_position_x, mouse_position_y )
     new_mouse_position_x, new_mouse_position_y = map_inf.calculate_main_building_position(resourses_group)
     mouse.move(new_mouse_position_x, new_mouse_position_y)
-    mouse.click()  # move by minimap
+    mouse.click(button='left')  # move by minimap
     # TODO improve for different resolution
     mouse.move(1920 / 2, 1080 / 2)
     # we are in center of screen on new expand
     keyboard.send('0')  # choose worker
     keyboard.send('b')
     keyboard.send('c')
-    mouse.click()  # build cc
+    #mouse.wait()  # build cc
     # TODO move worker to minerals
-    for gaz in resourses_group['gazes']:
-        new_mouse_position_x, new_mouse_position_y = map_inf.get_item_coordinate_on_whole_screen(gaz)
-        mouse.move(new_mouse_position_x, new_mouse_position_y)  # move by minimap
-        mouse.click()
-        mouse.move(1920 / 2, 1080 / 2)
-        # we are in center of screen on new gaz
-        keyboard.send('0')  # choose worker
-        keyboard.send('b')
-        keyboard.send('r')
-        mouse.click()  # build gazs
+    #for gaz in resourses_group['gazes']:
+    #    new_mouse_position_x, new_mouse_position_y = map_inf.get_item_coordinate_on_whole_screen(gaz)
+    #    mouse.move(new_mouse_position_x, new_mouse_position_y)  # move by minimap
+    #    mouse.click()
+    #    mouse.move(1920 / 2, 1080 / 2)
+    #    # we are in center of screen on new gaz
+    #    keyboard.send('0')  # choose worker
+    #    keyboard.send('b')
+    #    keyboard.send('r')
+    #    mouse.click()  # build gazs
 
 
 def set_global_while_flag_to_value(event):
@@ -93,14 +90,17 @@ def move_units_by_one():
 if __name__ == '__main__':
     keyboard.wait('s')
     map_info = MapInfo()
+    im = pag.screenshot()
+    map_info.parse_regions(im)
     try:
         keyboard.add_hotkey('3', run_watcher, args=(production_queue,), suppress=False, timeout=0, trigger_on_release=False)
         keyboard.add_hotkey('4', run_watcher, args=(production_queue,), suppress=False, timeout=0, trigger_on_release=False)
         keyboard.add_hotkey('5', run_watcher, args=(production_queue,), suppress=False, timeout=0, trigger_on_release=False)
         keyboard.add_hotkey('6', run_watcher, args=(production_queue,), suppress=False, timeout=0, trigger_on_release=False)
         # new expand
-        keyboard.add_hotkey('alt+c', occupy_expand, args=(map_info,), suppress=False, timeout=0.5, trigger_on_release=False)
+        keyboard.add_hotkey('z+x', occupy_expand, args=(map_info,), suppress=False, timeout=1, trigger_on_release=False)
         # move unit by one
+
         keyboard.on_release(set_global_while_flag_to_value)
         keyboard.add_hotkey('`', threading.Thread(target=move_units_by_one).start, suppress=False, timeout=1, trigger_on_release=False)
 

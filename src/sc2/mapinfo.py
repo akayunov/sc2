@@ -74,7 +74,7 @@ class MapInfo(Watcher):
                 if self.blue_pixels[j][k] == 1:
                     if self.check_blue_region(j, k, 6):
                         # gaz is found, save "up - left" corner as it coordinates
-                        self.minimap['gazes'].append((self.LEFT + j, self.UP + k))
+                        self.minimap['gazes'].append((j, k))
                     elif self.check_blue_region(j, k, 2):
                         # mineral is found, save "up - left" corner as it coordinates
                         self.minimap['minerals'].append((j, k))
@@ -134,11 +134,13 @@ class MapInfo(Watcher):
             raise Exception('Unknown resourses type')
 
     def get_nearest_exp_resourses_group(self, x, y):
+        x = x - self.LEFT
+        y = y - self.UP
         result = (1000000000, self.expand_groups[0])
         for group in self.expand_groups:
             for el in group['gazes'] + group['minerals']:
                 distance = math.sqrt((x - el[0]) ** 2 + (y - el[1]) ** 2)
-                if result[0] < distance:
+                if result[0] > distance:
                     result = (distance, group)
         return result[1]
 
@@ -208,4 +210,4 @@ class MapInfo(Watcher):
                     if distance  <= result[0]:
                         result = (distance, (i, k))
         # print('RESULT',result)
-        return result[1][0] + min_x, result[1][0] + min_y
+        return result[1][0] + min_x + self.LEFT, result[1][0] + min_y + self.UP
