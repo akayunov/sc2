@@ -1,6 +1,12 @@
 language: python
+
 python:
   - "2.7"
+sudo: enabled
+
+before_install:
+  - sudo apt-get install python-xlib
+
 install: true
 #  - pip install -e . --use-mirrors
 
@@ -8,10 +14,13 @@ before_script:
   - cd
   - git clone https://github.com/akayunov/sc2.git
   - pip install -r sc2/requirements.txt
+
 script:
   - cd ~/sc2
   - python --version
   - pytest bin/coverage-report.py
+
 after_success:
   - coveralls
+
 after_failure: true
