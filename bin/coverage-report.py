@@ -12,4 +12,10 @@ subprocess.call([
     '--cov-report', 'html:' + tmp_dir + '/cov_html',
     os.path.join(scr_dir, '../test')]
 )
-os.unlink('.coverage')
+try:
+    os.unlink('.coverage')
+except OSError as e:
+    if e.errno == 2:
+        pass
+    else:
+        raise

@@ -1,11 +1,13 @@
+from PIL import Image
 import sys
 
 try:
     import pyautogui
 except ImportError:
-    print('Install you favourite screen library')
-    pyautogui = None
-    exit(0)
+    class pyautogui(object):
+        @staticmethod
+        def screenshot():
+            return Image.new('RGB', (100, 100), (255, 255, 255))
 
 
 def print_debug(pixels_):
