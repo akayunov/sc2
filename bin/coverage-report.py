@@ -5,7 +5,7 @@ bin_dir = os.path.dirname(os.path.realpath(__file__))
 src_dir = os.path.dirname(bin_dir)
 tmp_dir = os.path.join(src_dir, 'tmp')
 
-pytest_path = 'pytest' if not os.stat(src_dir + '/v') else 'v/bin/pytest'
+pytest_path = 'pytest' if not os.path.isdir(src_dir + '/v') else 'v/bin/pytest'
 
 subprocess.call([
     os.path.join(src_dir, pytest_path),
