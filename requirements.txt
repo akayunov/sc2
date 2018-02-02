@@ -9,6 +9,7 @@ Pillow==5.0.0
 playsound==1.2.2
 pluggy==0.6.0
 py==1.5.2
+xlib==0.21
 PyAutoGUI==0.9.36
 PyMsgBox==1.0.6
 pyscreenshot==0.4.2
