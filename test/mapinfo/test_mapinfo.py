@@ -50,7 +50,7 @@ def test_map_info(test_input, expected, expected_group, input_coordinates, expec
     monkeypatch.setattr(MapInfo, 'BOTTOM', 100)
 
     map_info = MapInfo()
-    map_info.parse_regions(Image.open(os.path.dirname(__file__) + '/resourses/' + test_input))
+    map_info.parse_regions(Image.open(os.path.join(os.path.dirname(__file__), 'resourses', test_input)))
 
     assert expected == map_info.minimap
     assert expected_group == map_info.expand_groups
@@ -58,7 +58,7 @@ def test_map_info(test_input, expected, expected_group, input_coordinates, expec
     assert main_building_position == map_info.calculate_main_building_position(expected_nearest_resourses_group)
     map_info.alarm()
 
-
+# TODO implement it
 # def test_map_info_full_map():
 #     map_info2 = MapInfo()
 #     map_info2.parse_regions(Image.open(os.path.dirname(__file__) + '/resourses/' + 'full_map.png'))
@@ -76,10 +76,10 @@ def test_map_info_noisy_by_green(monkeypatch):
     monkeypatch.setattr(MapInfo, 'BOTTOM', 100)
 
     map_info = MapInfo()
-    map_info.parse_regions(Image.open(os.path.dirname(__file__) + '/resourses/' + 'noisy-by-green.png'))
+    map_info.parse_regions(Image.open(os.path.join(os.path.dirname(__file__), 'resourses', 'noisy-by-green.png')))
 
-    assert {'gazes': [], 'minerals': []} == map_info.minimap
     map_info.alarm()
+    assert {'gazes': [], 'minerals': []} == map_info.minimap
 
 
 @pytest.mark.xfail
@@ -91,7 +91,7 @@ def test_map_info_noisy_by_red(monkeypatch):
     monkeypatch.setattr(MapInfo, 'BOTTOM', 100)
 
     map_info = MapInfo()
-    map_info.parse_regions(Image.open(os.path.dirname(__file__) + '/resourses/' + 'noisy-by-red.png'))
+    map_info.parse_regions(Image.open(os.path.join(os.path.dirname(__file__), 'resourses', 'noisy-by-red.png')))
 
-    assert {'gazes': [(49, 19)], 'minerals': [(29, 36), (29, 38), (31, 36), (31, 38), (32, 24), (32, 28), (33, 36), (33, 38), (34, 23), (36, 21), (43, 19)]} == map_info.minimap
     map_info.alarm()
+    assert {'gazes': [(49, 19)], 'minerals': [(29, 36), (29, 38), (31, 36), (31, 38), (32, 24), (32, 28), (33, 36), (33, 38), (34, 23), (36, 21), (43, 19)]} == map_info.minimap

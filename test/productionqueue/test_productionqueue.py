@@ -82,7 +82,6 @@ from sc2.productionqueue import ProductionQueue
 ])
 def test_production_queue(test_input, expected):
     production_queue = ProductionQueue()
-    production_queue.parse_regions(Image.open(os.path.dirname(__file__) + '/resourses/' + test_input))
+    production_queue.parse_regions(Image.open(os.path.join(os.path.dirname(__file__), 'resourses', test_input)))
     assert expected == production_queue.production_queues
-    # for sound alarm do
-    # production_queue.alarm()
+    production_queue.alarm()

@@ -6,8 +6,10 @@ try:
 except ImportError:
     class pyautogui(object):
         @staticmethod
-        def screenshot():
+        def _screenshot():
             return Image.new('RGB', (100, 100), (255, 255, 255))
+
+        screenshot = _screenshot
 
 
 def print_debug(pixels_):
@@ -18,7 +20,7 @@ def print_debug(pixels_):
 
 
 def get_screenshot():
-    pyautogui.screenshot()
+    return pyautogui.screenshot()
 
 
 def convert_by_diag(high, a):

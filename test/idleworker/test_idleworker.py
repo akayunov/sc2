@@ -19,6 +19,6 @@ from sc2.idleworker import IdleWorker
 ])
 def test_idle_worker(test_input, expected):
     iw = IdleWorker()
-    iw.parse_regions(Image.open(os.path.dirname(__file__) + '/resourses/' + test_input))
+    iw.parse_regions(Image.open(os.path.join(os.path.dirname(__file__), 'resourses', test_input)))
     assert expected == iw.worker_count
-    # iw.alarm()
+    iw.alarm()

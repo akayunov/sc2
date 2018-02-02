@@ -9,19 +9,19 @@ class Watcher(object):
 
     @abc.abstractproperty
     def name(self):
-        raise NotImplementedError()
+        raise NotImplementedError()  # pragma: no cover
 
     @abc.abstractmethod
     def parse_regions(self, image):
-        raise NotImplementedError()
+        raise NotImplementedError()  # pragma: no cover
 
     @abc.abstractmethod
     def image_is_needed(self):
-        raise NotImplementedError()
+        raise NotImplementedError()  # pragma: no cover
 
     @abc.abstractmethod
     def alarm(self):
-        raise NotImplementedError()
+        raise NotImplementedError()  # pragma: no cover
 
 
 class WatcherProperties(object):
@@ -40,5 +40,5 @@ class WatcherProperties(object):
                 self.watcher.alarm()
                 self.curent_alarm_period = self.initial_alarm_period
             self.curent_alarm_period -= 1
-        except Exception:
-            print(traceback.format_exc())
+        except Exception:  # pragma: no cover
+            print(traceback.format_exc())  # pragma: no cover

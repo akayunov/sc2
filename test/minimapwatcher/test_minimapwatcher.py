@@ -13,6 +13,6 @@ from sc2.minimapwatcher import MiniMapWatcher
 ])
 def test_minimap_watcher(test_input, expected):
     minimap_watcher = MiniMapWatcher()
-    minimap_watcher.parse_regions(Image.open(os.path.dirname(__file__) + '/resourses/' + test_input))
+    minimap_watcher.parse_regions(Image.open(os.path.join(os.path.dirname(__file__), 'resourses', test_input)))
     assert expected == minimap_watcher.current_values
-    # minimap_watcher.alarm()
+    minimap_watcher.alarm()
