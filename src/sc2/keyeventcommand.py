@@ -50,14 +50,13 @@ class KeyEventCommand:
         keyboard.send('b')
         keyboard.send('c')
         mouse.wait()  # build cc
+        keyboard.send('esc')
         # TODO move worker to minerals
         for gaz in resourses_group['gazes']:
             new_mouse_position_x, new_mouse_position_y = self.map_info.get_item_coordinate_on_whole_screen(gaz)
             mouse.move(new_mouse_position_x, new_mouse_position_y)  # move by minimap
-
             mouse.click()
             mouse.move(RESOLUTION.x / 2, RESOLUTION.y / 2)
-            #mouse.wait()
         #    # we are in center of screen on new gaz
             keyboard.send('0')  # choose worker
             keyboard.send('b')

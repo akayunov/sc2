@@ -5,7 +5,7 @@ from sc2.watcher import Watcher
 
 
 class ProductionQueue(Watcher):
-    NAME = 'productionqueue'
+    NAME = 'production queue'
     LEFT = 370
     RIGHT = 1360
     UP = 880

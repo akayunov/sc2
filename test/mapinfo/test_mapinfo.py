@@ -57,6 +57,7 @@ def test_map_info(test_input, expected, expected_group, input_coordinates, expec
     assert expected_nearest_resourses_group == map_info.get_nearest_exp_resourses_group(*input_coordinates)
     assert main_building_position == map_info.calculate_main_building_position(expected_nearest_resourses_group)
     map_info.alarm()
+    assert map_info.name() == 'map info'
 
 # TODO implement it
 # def test_map_info_full_map():

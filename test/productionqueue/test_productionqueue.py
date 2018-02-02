@@ -84,4 +84,6 @@ def test_production_queue(test_input, expected):
     production_queue = ProductionQueue()
     production_queue.parse_regions(Image.open(os.path.join(os.path.dirname(__file__), 'resourses', test_input)))
     assert expected == production_queue.production_queues
+    assert production_queue.name() == 'production queue'
+    assert production_queue.image_is_needed() is True
     production_queue.alarm()

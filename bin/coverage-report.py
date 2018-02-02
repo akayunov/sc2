@@ -11,7 +11,6 @@ subprocess.call([
     os.path.join(pytest_path),
     '--cov-config', os.path.join(src_dir, '.coveragerc'),
     '--cov', os.path.join(src_dir, 'src'),
-    '--cov', os.path.join(src_dir, 'bin'),
     '--cov', os.path.join(src_dir, 'test'),
     '--cov-report', 'html:' + tmp_dir + '/cov_html',
     os.path.join(src_dir, 'test')]

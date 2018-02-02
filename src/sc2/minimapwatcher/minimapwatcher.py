@@ -4,7 +4,7 @@ from sc2.watcher import Watcher
 
 
 class MiniMapWatcher(Watcher):
-    NAME = 'minimapwatcher'
+    NAME = 'minimap watcher'
     LEFT = 20
     RIGHT = 275 + LEFT
     UP = 805
