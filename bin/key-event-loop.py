@@ -1,5 +1,3 @@
-#!../v/bin/python
-
 import traceback
 import os
 import sys

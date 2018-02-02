@@ -1,5 +1,3 @@
-#!../v/bin/python
-
 import subprocess
 import os.path
 
