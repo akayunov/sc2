@@ -13,6 +13,7 @@ from sc2.keyeventcommand import KeyEventCommand
 if __name__ == '__main__':
     print('Press "s" to start')
     keyboard.wait('s')
+    print('Started')
     map_info = MapInfo()
     image = pag.screenshot()
     map_info.parse_regions(image)

@@ -38,7 +38,7 @@ class WatcherProperties(object):
             self.watcher.parse_regions(image)
             if self.curent_alarm_period <= 0:
                 self.watcher.alarm()
-                self.watcher.curent_alarm_period = self.watcher.initial_alarm_period
-                self.watcher.curent_alarm_period -= 1
+                self.curent_alarm_period = self.initial_alarm_period
+            self.curent_alarm_period -= 1
         except Exception:
             print(traceback.format_exc())
