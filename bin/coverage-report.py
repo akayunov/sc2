@@ -8,7 +8,7 @@ tmp_dir = os.path.join(src_dir, 'tmp')
 pytest_path = 'pytest' if not os.path.isdir(src_dir + '/v') else 'v/bin/pytest'
 
 subprocess.call([
-    os.path.join(src_dir, pytest_path),
+    os.path.join(pytest_path),
     '--cov-config', os.path.join(src_dir, '.coveragerc'),
     '--cov', os.path.join(src_dir, 'src'),
     '--cov', os.path.join(src_dir, 'bin'),
