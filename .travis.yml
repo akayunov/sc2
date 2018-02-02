@@ -4,17 +4,12 @@ python:
   - "2.7"
 sudo: enabled
 
-before_install:
-  - export DISPLAY=:0
-  - sudo apt-get install python-xlib
-
 install: true
 #  - pip install -e . --use-mirrors
 
 before_script:
   - cd
   - git clone https://github.com/akayunov/sc2.git
-  - pip install xlib
   - pip install -r sc2/requirements.txt
 
 script:

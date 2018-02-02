@@ -1,8 +1,8 @@
 import traceback
 import os
 import sys
-import pyautogui as pag
 import keyboard
+from sc2.utils import get_screenshot
 
 sys.path = [os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src'))] + sys.path
 
@@ -15,7 +15,7 @@ if __name__ == '__main__':
     keyboard.wait('s')
     print('Started')
     map_info = MapInfo()
-    image = pag.screenshot()
+    image = get_screenshot()
     map_info.parse_regions(image)
     kec = KeyEventCommand(map_info)
     try:

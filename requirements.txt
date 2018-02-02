@@ -1,24 +1,17 @@
 attrs==17.4.0
-certifi==2018.1.18
-chardet==3.0.4
-EasyProcess==0.2.3
 funcsigs==1.0.2
-gi==1.2
-idna==2.6
+keyboard==0.11.0
+mouse==0.7.0
 Pillow==5.0.0
 playsound==1.2.2
 pluggy==0.6.0
 py==1.5.2
-xlib==0.21
-PyAutoGUI==0.9.36
-PyMsgBox==1.0.6
-pyscreenshot==0.4.2
-PyScreeze==0.1.13
-pytest==3.3.2
+# PyAutoGUI==0.9.36  # it doesn't work on travis without gui so install it by hand
+# PyMsgBox==1.0.6  # it doesn't work on travis without gui so install it by hand
+# PyScreeze==0.1.13  # it doesn't work on travis without gui so install it by hand
+# PyTweening==1.0.3  # it doesn't work on travis without gui so install it by hand
+pytest==3.4.0
 pytest-cov==2.5.1
-pytest-pythonpath==0.7.1
 python-coveralls==2.9.1
-PyTweening==1.0.3
-requests==2.18.4
+pytest-pythonpath==0.7.1
 six==1.11.0
-urllib3==1.22

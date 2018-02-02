@@ -1,11 +1,22 @@
 import sys
 
+try:
+    import pyautogui
+except ImportError:
+    print('Install you favourite screen library')
+    pyautogui = None
+    exit(0)
+
 
 def print_debug(pixels_):
     for ii in range(len(pixels_[0])):
         for kk in range(len(pixels_)):
             sys.stdout.write(str(pixels_[kk][ii]))
         sys.stdout.write('\n')
+
+
+def get_screenshot():
+    pyautogui.screenshot()
 
 
 def convert_by_diag(high, a):

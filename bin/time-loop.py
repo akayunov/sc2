@@ -2,12 +2,12 @@ import traceback
 import time
 import os
 import sys
-import pyautogui as pag
 import mouse
 import keyboard
 
 sys.path = [os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src'))] + sys.path
 
+from sc2.utils import get_screenshot
 from sc2.mapinfo import MapInfo
 from sc2.sasayblock import SasayBlock
 from sc2.minimapwatcher import MiniMapWatcher
@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
         while 1:
             time.sleep(1)
-            im = pag.screenshot()
+            im = get_screenshot()
             for watcher in watchers:
                 watcher.run_watcher(image=im)
 

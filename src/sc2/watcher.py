@@ -1,6 +1,7 @@
 import abc
-import pyautogui
 import traceback
+
+from sc2.utils import get_screenshot
 
 
 class Watcher(object):
@@ -31,8 +32,7 @@ class WatcherProperties(object):
 
     def run_watcher(self, image=None):
         if image is None and self.watcher.image_is_needed():
-            image = pyautogui.screenshot()
-
+            image = get_screenshot()
         try:
             print('=' * 8, self.watcher.NAME, '=' * 8)
             self.watcher.parse_regions(image)
