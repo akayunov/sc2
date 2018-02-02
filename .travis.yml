@@ -5,6 +5,7 @@ python:
 sudo: enabled
 
 before_install:
+  - export DISPLAY=:0
   - sudo apt-get install python-xlib
 
 install: true
