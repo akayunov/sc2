@@ -20,14 +20,21 @@ class KeyEventCommand:
         self.add_hotkey('5', production_queue_watcher.run_watcher, in_own_thread=False)
         self.add_hotkey('6', production_queue_watcher.run_watcher, in_own_thread=False)
         # new expand
-        self.add_hotkey('z+x', target=self.occupy_expand, args=(self.map_info,), timeout=1)
+        self.add_hotkey('z+x', target=self.occupy_expand, args=(), timeout=1, in_own_thread=False)
         # move commads
         self.add_hotkey('`', target=self.send_command_to_units_by_one, args=(self.move_unit_command,), timeout=1)
         self.add_hotkey('q', target=self.send_command_to_units_by_one, args=(self.re_seige_tanks,), timeout=1)
 
     def add_hotkey(self, hotkey, target, args=(), in_own_thread=True, timeout=0):
         self.hotkeys.update(hotkey)
+        def create_thread(target=target, args=([hotkey] + list(args))):
+            print('XIXIXI   ')
+            target = target
+            args = args
+            return threading.Thread(target=target, args=args).start
+            
         if in_own_thread:
+            # you should recreate this thread in hotkey handler because of  threads can only be started once
             keyboard.add_hotkey(hotkey, threading.Thread(target=target, args=([hotkey] + list(args))).start,
                                 suppress=False, timeout=timeout, trigger_on_release=False)
         else:
@@ -38,28 +45,39 @@ class KeyEventCommand:
             self.while_flag = False
 
     def occupy_expand(self):
+        import time
+        print('XAXAX')
         mouse_position_x, mouse_position_y = mouse.get_position()
         resourses_group = self.map_info.get_nearest_exp_resourses_group(mouse_position_x, mouse_position_y)
         new_mouse_position_x, new_mouse_position_y = self.map_info.calculate_main_building_position(resourses_group)
         mouse.move(new_mouse_position_x, new_mouse_position_y)
+        time.sleep(1)
         mouse.click(button='left')  # move by minimap
         mouse.move(RESOLUTION.x / 2, RESOLUTION.y / 2)
+        time.sleep(1)
         # we are in center of screen on new expand
         keyboard.send('0')  # choose worker
         keyboard.send('b')
         keyboard.send('c')
-        # mouse.wait()  # build cc
+        mouse.wait()  # build cc
+        keyboard.send('esc')
         # TODO move worker to minerals
-        # for gaz in resourses_group['gazes']:
-        #    new_mouse_position_x, new_mouse_position_y = map_inf.get_item_coordinate_on_whole_screen(gaz)
-        #    mouse.move(new_mouse_position_x, new_mouse_position_y)  # move by minimap
-        #    mouse.click()
-        #    mouse.move(RESOLUTION.x / 2, RESOLUTION.y / 2)
+        print('gazes',  resourses_group['gazes'])
+        for gaz in resourses_group['gazes']:
+            print('GAZ', gaz)
+            new_mouse_position_x, new_mouse_position_y = self.map_info.get_item_coordinate_on_whole_screen(gaz)
+            mouse.move(new_mouse_position_x, new_mouse_position_y)  # move by minimap
+
+            time.sleep(1)
+            mouse.click()
+            mouse.move(RESOLUTION.x / 2, RESOLUTION.y / 2)
+            #mouse.wait()
+            time.sleep(1)   
         #    # we are in center of screen on new gaz
-        #    keyboard.send('0')  # choose worker
-        #    keyboard.send('b')
-        #    keyboard.send('r')
-        #    mouse.click()  # build gazs
+            keyboard.send('0')  # choose worker
+            keyboard.send('b')
+            keyboard.send('r')
+            mouse.wait()  # build gazs
 
     @staticmethod
     def move_unit_command():
@@ -67,10 +85,12 @@ class KeyEventCommand:
 
     @staticmethod
     def re_seige_tanks():
+        #keyboard.send('d')
+        #import time; time.sleep(0.5)
         keyboard.press('shift')
-        keyboard.send('d')
         mouse.click(button='right')
         keyboard.send('e')
+        keyboard.release('shift')
 
     def send_command_to_units_by_one(self, hotkey, command):
         self.while_flag = True
@@ -78,11 +98,11 @@ class KeyEventCommand:
         # move units to group 9
         keyboard.send('ctrl+9')
         # while we wait it we don't want triger this hotkey again
-        mouse.wait(button='right', target_types=('up',))
+        mouse.wait(button='left', target_types=('up',))
         is_waited = False
         while self.while_flag:
             if is_waited:
-                mouse.wait(button='right', target_types=('up',))
+                mouse.wait(button='left', target_types=('up',))
                 if not self.while_flag:
                     break
             mouse_position_x, mouse_position_y = mouse.get_position()
@@ -92,7 +112,7 @@ class KeyEventCommand:
             # remove unit from group
             keyboard.send('alt+8')
             mouse.move(mouse_position_x, mouse_position_y)
-            # mouse.click(button='right')
+            # mouse.click(button='left')
             # move units
             command()
             # choose left units

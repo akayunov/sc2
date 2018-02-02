@@ -3,3 +3,5 @@ v/
 .idea
 __pycache__
 *.pyc
+tmp
+.coverage
