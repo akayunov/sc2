@@ -1,9 +1,7 @@
-import sys
 import os.path
 import pytest
 from PIL import Image
 
-sys.path = [os.path.abspath(os.path.dirname(__file__) + '../../../src/')] + sys.path
 from sc2.idleworker import IdleWorker
 
 

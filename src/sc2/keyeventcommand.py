@@ -27,14 +27,8 @@ class KeyEventCommand:
 
     def add_hotkey(self, hotkey, target, args=(), in_own_thread=True, timeout=0):
         self.hotkeys.update(hotkey)
-        def create_thread(target=target, args=([hotkey] + list(args))):
-            print('XIXIXI   ')
-            target = target
-            args = args
-            return threading.Thread(target=target, args=args).start
-            
         if in_own_thread:
-            # you should recreate this thread in hotkey handler because of  threads can only be started once
+            # you should recreate this thread(remove and add this hotkey again) in hotkey handler because of threads can only be started once
             keyboard.add_hotkey(hotkey, threading.Thread(target=target, args=([hotkey] + list(args))).start,
                                 suppress=False, timeout=timeout, trigger_on_release=False)
         else:
@@ -45,34 +39,25 @@ class KeyEventCommand:
             self.while_flag = False
 
     def occupy_expand(self):
-        import time
-        print('XAXAX')
         mouse_position_x, mouse_position_y = mouse.get_position()
         resourses_group = self.map_info.get_nearest_exp_resourses_group(mouse_position_x, mouse_position_y)
         new_mouse_position_x, new_mouse_position_y = self.map_info.calculate_main_building_position(resourses_group)
         mouse.move(new_mouse_position_x, new_mouse_position_y)
-        time.sleep(1)
         mouse.click(button='left')  # move by minimap
         mouse.move(RESOLUTION.x / 2, RESOLUTION.y / 2)
-        time.sleep(1)
         # we are in center of screen on new expand
         keyboard.send('0')  # choose worker
         keyboard.send('b')
         keyboard.send('c')
         mouse.wait()  # build cc
-        keyboard.send('esc')
         # TODO move worker to minerals
-        print('gazes',  resourses_group['gazes'])
         for gaz in resourses_group['gazes']:
-            print('GAZ', gaz)
             new_mouse_position_x, new_mouse_position_y = self.map_info.get_item_coordinate_on_whole_screen(gaz)
             mouse.move(new_mouse_position_x, new_mouse_position_y)  # move by minimap
 
-            time.sleep(1)
             mouse.click()
             mouse.move(RESOLUTION.x / 2, RESOLUTION.y / 2)
             #mouse.wait()
-            time.sleep(1)   
         #    # we are in center of screen on new gaz
             keyboard.send('0')  # choose worker
             keyboard.send('b')
@@ -85,8 +70,6 @@ class KeyEventCommand:
 
     @staticmethod
     def re_seige_tanks():
-        #keyboard.send('d')
-        #import time; time.sleep(0.5)
         keyboard.press('shift')
         mouse.click(button='right')
         keyboard.send('e')

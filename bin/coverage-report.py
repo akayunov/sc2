@@ -1,3 +1,5 @@
+#!../v/bin/python
+
 import subprocess
 import os.path
 
@@ -12,3 +14,4 @@ subprocess.call([
     '--cov-report', 'html:' + tmp_dir + '/cov_html',
     os.path.join(scr_dir, '../test')]
 )
+os.unlink('.coverage')
