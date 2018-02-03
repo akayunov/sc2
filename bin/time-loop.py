@@ -22,7 +22,8 @@ if __name__ == '__main__':
         map_info = MapInfo()
         watchers = [
             WatcherProperties(SasayBlock(), 5), WatcherProperties(MiniMapWatcher(), 1),
-            WatcherProperties(ProductionQueue(), 5), WatcherProperties(IdleWorker(), 5)
+            #WatcherProperties(ProductionQueue(), 5),
+            WatcherProperties(IdleWorker(), 5)
         ]
         economic_checkers = [
             WatcherProperties(CheckEconomic('cc'), 30),

@@ -2,10 +2,10 @@ import traceback
 import os
 import sys
 import keyboard
-from sc2.utils import get_screenshot
 
 sys.path = [os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src'))] + sys.path
 
+from sc2.utils import get_screenshot
 from sc2.mapinfo import MapInfo
 from sc2.keyeventcommand import KeyEventCommand
 

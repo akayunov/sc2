@@ -60,7 +60,7 @@ class MapInfo(object):
             # only for gasez because mineral can have a common border see test two-expand.png
             if size == 5:
                 for xi in range(x, x + size + 1):
-                    for yi in range(y, y + size + 1):
+                    for yi in range(y, y + size + 1 ): # +2 because some gaz have 4 size soma have 6???
                         self.blue_pixels[xi][yi] = 0
 
             return True
