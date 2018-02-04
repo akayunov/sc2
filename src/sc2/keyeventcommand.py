@@ -1,9 +1,13 @@
 import keyboard
 import mouse
 import threading
+import os
+from playsound import playsound
 
 from sc2.productionqueue import ProductionQueue
+from sc2.sasayblock import SasayBlock
 from sc2.watcher import WatcherProperties
+from sc2.utils import get_screenshot
 from sc2.const import RESOLUTION
 
 
@@ -16,13 +20,15 @@ class KeyEventCommand:
         keyboard.on_release(self.turn_off_while_flag)
 
         # too noisy
-        #production_queue_watcher = WatcherProperties(ProductionQueue(), 0)
-        #self.add_hotkey('3', production_queue_watcher.run_watcher, in_own_thread=False)
-        #self.add_hotkey('4', production_queue_watcher.run_watcher, in_own_thread=False)
-        #self.add_hotkey('5', production_queue_watcher.run_watcher, in_own_thread=False)
-        #self.add_hotkey('6', production_queue_watcher.run_watcher, in_own_thread=False)
+        self.production_queue = ProductionQueue()
+        production_queue_watcher_properties = WatcherProperties(self.production_queue, 0)
+        #self.add_hotkey('3', production_queue_watcher_properties.run_watcher, in_own_thread=False)
+        #self.add_hotkey('4', production_queue_watcher_properties.run_watcher, in_own_thread=False)
+        #self.add_hotkey('5', production_queue_watcher_properties.run_watcher, in_own_thread=False)
+        #self.add_hotkey('6', production_queue_watcher_properties.run_watcher, in_own_thread=False)
         # new expand
         self.add_hotkey('z+x', target=self.occupy_expand, args=(), timeout=1)
+        self.add_hotkey('z+c', target=self.build_scv, args=(), timeout=1)
         # move commads
         self.add_hotkey('`', target=self.send_command_to_units_by_one, args=(self.move_unit_command,), timeout=1)
         self.add_hotkey('w', target=self.send_command_to_units_by_one, args=(self.re_seige_tanks,), timeout=1)
@@ -100,11 +106,56 @@ class KeyEventCommand:
             if not self.expand_flag:
                 self.add_hotkey('z+x', target=self.occupy_expand, args=(), timeout=1)
                 return
-            mouse.wait()  # build gazs
+            mouse.wait()  # build gazs6
             if not self.expand_flag:
                 self.add_hotkey('z+x', target=self.occupy_expand, args=(), timeout=1)
                 return
         self.add_hotkey('z+x', target=self.occupy_expand, args=(), timeout=1)
+
+    def build_scv(self, hotkey):
+        import time;
+        keyboard.remove_hotkey(hotkey)
+        sasayblock = SasayBlock()
+        worker_counter = 22
+        #worker_counter = 1
+        # TODO check resourses before order to ensure that order will be done
+        while 1:
+            #playsound('C:\\sc2\\src\\sc2\\productionqueue\\resourses\\queue_is_overflowing.mp3')
+            #i don't need screenshot to check building quue just now how many cc on map by parsing 
+            # 6 group key and that all and d oorder after 12 sec
+            # as close as posible to send "s" but before get screenshot, do I realy need scren shot I just need to know how many cc is exits
+            # 
+            image = get_screenshot()
+            try:
+                sasayblock.parse_regions(image)
+            except Exception:
+                pass
+            # hot to disable right click in this time?
+            #self.production_queue.parse_regions(get_screenshot())
+            #aleady_building = 0
+            #for cc in self.production_queue.production_queues:
+            #    aleady_building += len(list(filter(lambda x: x == 254, cc)))
+            #print(aleady_building, len(self.production_queue.production_queues))
+            #worker_needed = len(self.production_queue.production_queues) * 2 - aleady_building
+            # assume that we have 2 cc so we can order 2 worker
+            worker_needed = 2
+            worker_can_be_order_by_this_mineral_count = int(sasayblock.minerals/50)
+            #break
+            #time.sleep(0.1)
+            keyboard.send('ctrl+0') # add curent selected to 0, for returning back
+            keyboard.send('6')  
+            for i in range(min(worker_can_be_order_by_this_mineral_count, worker_needed)):
+                worker_counter -= 1
+                keyboard.send('s')
+                print('order done', worker_counter)
+                if worker_counter <= 0:
+                    break
+            if worker_counter <= 0:
+                break
+            keyboard.send('0,0')
+            time.sleep(12)
+        keyboard.send('0,0')
+        self.add_hotkey(hotkey, target=self.build_scv, args=(), timeout=1)
 
     @staticmethod
     def move_unit_command():

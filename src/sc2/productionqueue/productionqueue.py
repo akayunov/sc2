@@ -40,6 +40,7 @@ class ProductionQueue(Watcher):
         some_structure = []
         marker_count = 0
         previous_marker = 0
+        self.production_queues = [] 
         for l in range(3):  # 3 line it's rare case then thera will be more then 27 factory
             for p in range(x_start_position, self.RIGHT - self.LEFT):
                 r, g, b = region.getpixel((p, y_start_position + line_high * l))

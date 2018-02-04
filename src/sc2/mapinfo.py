@@ -94,7 +94,7 @@ class MapInfo(object):
             while item_was_added:
                 item_was_added = 0
                 for mineral_comparision in minerals:
-                    if min(map(partial(self.distance, 'mineral_to_mineral', mineral_comparision), group)) < 5:
+                    if min(map(partial(self.distance, 'mineral_to_mineral', mineral_comparision), group)) <= 5:
                         item_was_added = 1
                         group.append(mineral_comparision)
                 minerals = filter(lambda x: x not in group, minerals)
@@ -122,13 +122,16 @@ class MapInfo(object):
     def distance(item_type, item_1_gaz, item_2_mineral):
         if item_type == 'mineral_to_mineral':
             # return max from x or y distance, 2 = mineral size
+            print(item_type, item_1_gaz,item_2_mineral , max([abs(item_1_gaz[0] - item_2_mineral[0]) - 2, abs(item_1_gaz[1] - item_2_mineral[1]) - 2]))
             return max([abs(item_1_gaz[0] - item_2_mineral[0]) - 2, abs(item_1_gaz[1] - item_2_mineral[1]) - 2])
         elif item_type == 'mineral_to_gaz':
             # TODO (item_1_gaz[0] - item_2_mineral[0]) > 0  is equal to item_1_gaz[0] > item_2_mineral[0]
             x_distance = (item_1_gaz[0] - item_2_mineral[0] - 2) if (item_1_gaz[0] - item_2_mineral[0]) > 0 else (item_2_mineral[0] - item_1_gaz[0] - 6)
             y_distance = (item_1_gaz[1] - item_2_mineral[1] - 2) if (item_1_gaz[1] - item_2_mineral[1]) > 0 else (item_2_mineral[1] - item_1_gaz[1] - 6)
+            print(item_type, item_1_gaz,item_2_mineral , max([x_distance, y_distance]))
             return max([x_distance, y_distance])
         elif item_type == 'gaz_to_gaz':
+            print(item_type, item_1_gaz,item_2_mineral , max([abs(item_1_gaz[0] - item_2_mineral[0]) - 6, abs(item_1_gaz[1] - item_2_mineral[1]) - 6]))
             return max([abs(item_1_gaz[0] - item_2_mineral[0]) - 6, abs(item_1_gaz[1] - item_2_mineral[1]) - 6])
         else:
             raise Exception('Unknown resourses type')
