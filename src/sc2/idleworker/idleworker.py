@@ -149,7 +149,6 @@ class IdleWorker(NumberParser):
                 n.append(pixels[i])
 
     def alarm(self):
-        print('XAXAXA', self.worker_count)
         if self.worker_count and int(''.join(map(str, self.worker_count))) >= 2:
             playsound(os.path.join(os.path.dirname(__file__), 'resourses', 'too_many_idle_workers.mp3'))
 
