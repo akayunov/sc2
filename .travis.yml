@@ -15,7 +15,7 @@ before_script:
 script:
   - cd ~/sc2
   - python --version
-  - sudo python bin/coverage-report.py
+  - python bin/coverage-report.py
 
 after_success:
   - coveralls
