@@ -1,11 +1,11 @@
 import os
 from playsound import playsound
+
 from sc2.watcher import Watcher
 
 
 class ProductionQueue(Watcher):
-    NAME = 'productionqueue'
-    # TODO improve for diff screen resolution
+    NAME = 'production queue'
     LEFT = 370
     RIGHT = 1360
     UP = 880
@@ -22,7 +22,6 @@ class ProductionQueue(Watcher):
     def image_is_needed(self):
         return True
 
-    # TODO move to base class
     def parse_regions(self, image):
         im = image
 
@@ -41,6 +40,7 @@ class ProductionQueue(Watcher):
         some_structure = []
         marker_count = 0
         previous_marker = 0
+        self.production_queues = [] 
         for l in range(3):  # 3 line it's rare case then thera will be more then 27 factory
             for p in range(x_start_position, self.RIGHT - self.LEFT):
                 r, g, b = region.getpixel((p, y_start_position + line_high * l))

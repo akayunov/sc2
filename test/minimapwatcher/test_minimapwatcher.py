@@ -1,9 +1,7 @@
-import sys
 import os.path
 import pytest
 from PIL import Image
 
-sys.path = [os.path.abspath(os.path.dirname(__file__) + '../../../src/')] + sys.path
 from sc2.minimapwatcher import MiniMapWatcher
 
 
@@ -15,6 +13,8 @@ from sc2.minimapwatcher import MiniMapWatcher
 ])
 def test_minimap_watcher(test_input, expected):
     minimap_watcher = MiniMapWatcher()
-    minimap_watcher.parse_regions(Image.open(os.path.dirname(__file__) + '/resourses/' + test_input))
+    minimap_watcher.parse_regions(Image.open(os.path.join(os.path.dirname(__file__), 'resourses', test_input)))
     assert expected == minimap_watcher.current_values
-    # minimap_watcher.alarm()
+    minimap_watcher.alarm()
+    assert minimap_watcher.name() == 'minimap watcher'
+    assert minimap_watcher.image_is_needed() is True

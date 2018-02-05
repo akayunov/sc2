@@ -1,9 +1,7 @@
-import sys
 import os.path
 import pytest
 from PIL import Image
 
-sys.path = [os.path.abspath(os.path.dirname(__file__) + '../../../src/')] + sys.path
 from sc2.sasayblock import SasayBlock
 
 
@@ -17,7 +15,6 @@ from sc2.sasayblock import SasayBlock
 ])
 def test_sasay_block(test_input, expected):
     sasay_block = SasayBlock()
-    sasay_block.parse_regions(Image.open(os.path.dirname(__file__) + '/resourses/' + test_input))
+    sasay_block.parse_regions(Image.open(os.path.join(os.path.dirname(__file__), 'resourses', test_input)))
     assert expected == [sasay_block.minerals, sasay_block.gas, sasay_block.supply]
-    # for sound alarm do
-    # sasay_block.alarm()
+    sasay_block.alarm()
