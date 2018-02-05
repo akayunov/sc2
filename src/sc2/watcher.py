@@ -31,13 +31,14 @@ class WatcherProperties(object):
         self.curent_alarm_period = initial_alarm_period
 
     def run_watcher(self, image=None):
-        if image is None and self.watcher.image_is_needed():
+        watcher_obj = self.watcher()
+        if image is None and watcher_obj.image_is_needed():
             image = get_screenshot()
         try:
-            print('=' * 8, self.watcher.NAME, '=' * 8)
-            self.watcher.parse_regions(image)
+            print('=' * 8, watcher_obj.NAME, '=' * 8)
+            watcher_obj.parse_regions(image)
             if self.curent_alarm_period <= 0:
-                self.watcher.alarm()
+                watcher_obj.alarm()
                 self.curent_alarm_period = self.initial_alarm_period
             self.curent_alarm_period -= 1
         except Exception:  # pragma: no cover

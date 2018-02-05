@@ -3,7 +3,7 @@ from sc2.watcher import WatcherProperties
 
 
 def test_watcher_properties():
-    wp = WatcherProperties(IdleWorker(), 5)
+    wp = WatcherProperties(IdleWorker, 5)
     assert wp.initial_alarm_period == 5
     wp.run_watcher()
     wp.run_watcher()

@@ -3,7 +3,7 @@ from playsound import playsound
 from sc2.watcher import Watcher
 
 
-class MiniMapWatcher(Watcher):
+class EnemyOnMinimap(Watcher):
     NAME = 'minimap watcher'
     LEFT = 20
     RIGHT = 275 + LEFT

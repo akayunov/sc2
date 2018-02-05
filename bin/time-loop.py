@@ -20,12 +20,12 @@ if __name__ == '__main__':
     try:
         map_info = MapInfo()
         watchers = [
-            WatcherProperties(SasayBlock(), 5), WatcherProperties(MiniMapWatcher(), 1), WatcherProperties(IdleWorker(), 5)
+            WatcherProperties(SasayBlock, 5), WatcherProperties(MiniMapWatcher, 1), WatcherProperties(IdleWorker, 5)
         ]
-        economic_checkers = [
-            WatcherProperties(CheckEconomic('cc'), 30),
-            WatcherProperties(CheckEconomic('gaz'), 30)
-        ]
+        # economic_checkers = [
+        #     WatcherProperties(CheckEconomic('cc'), 30),
+        #     WatcherProperties(CheckEconomic('gaz'), 30)
+        # ]
 
         while 1:
             time.sleep(1)

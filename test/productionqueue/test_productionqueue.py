@@ -68,6 +68,7 @@ from sc2.productionqueue import ProductionQueue
         []
     ]),
     ('4-cc-csv-build.png', [[254, 254, 64, 64, 64], [254, 64, 64, 64, 64], [254, 64, 64, 64, 64]]),
+    ('queue-is-overflowing.png', [[254, 254, 254, 64, 64], [254, 254, 254, 64, 64]]),
     ('many-starports.png', [[254, 64, 64, 64, 64],
                             [254, 64, 64, 64, 64],
                             [254, 64, 64, 64, 64],
