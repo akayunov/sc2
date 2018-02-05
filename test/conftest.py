@@ -10,6 +10,9 @@ def mock_play_sound(path):
     os.path.isfile(path)
 
 
+playsound.playsound = mock_play_sound
+
+
 # TODO learn how to test with GUI on travis CI
 class MockException(Exception): pass
 
@@ -23,18 +26,13 @@ class KeyBoardMock(object):
     def send(self, combination, do_press=True, do_release=True):
         self.send_buttons.append(combination)
 
-    def wait(self):
-        combination = self.combination
-        self.combination = ''
-        return combination
-
     def remove_hotkey(self, combination):
         self.hotkeys.remove(combination)
 
     def add_hotkey(self, hotkey, callback, args=(), suppress=False, timeout=1, trigger_on_release=False):
         self.hotkeys.update([hotkey])
 
-    def is_pressed(self):
+    def is_pressed(self, combination):
         return True
 
     def on_release(self, callback):
@@ -55,9 +53,6 @@ class MouseMock(object):
         self.get_positions = []
 
     def wait(self, button='left', target_types=('up', 'down', 'double')):
-        # for wait_button in self.wait_buttons:
-        #     if wait_button == button:
-        #         yield wait_button
         return self.wait_buttons.pop(0)
 
     def move(self, x, y):
@@ -69,10 +64,14 @@ class MouseMock(object):
     def get_position(self):
         return self.get_positions.pop(0)
 
-
 class KeyBoardEvent(object):
     def __init__(self, name):
         self.name = name
+
+
+@pytest.fixture(scope='function')
+def keyevent_mock():
+    return KeyBoardEvent('tratata')
 
 
 @pytest.fixture(scope='function')
@@ -91,10 +90,8 @@ def keyboard_mock():
     keyboard.send = km.send
     keyboard.add_hotkey = km.add_hotkey
     keyboard.remove_hotkey = km.remove_hotkey
-    keyboard.wait = km.wait
     keyboard.is_pressed = km.is_pressed
     keyboard.on_release = km.on_release
+    keyboard.release = km.release
+    keyboard.press = km.press
     return km
-
-
-playsound.playsound = mock_play_sound
