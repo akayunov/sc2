@@ -9,7 +9,7 @@ from sc2.enemyonminimap import EnemyOnMinimap
     ('empty-mini-map.png', [0, 0, 0, 0, 0, 0, 0, 0, 0]),
     ('enemy-in-smog.png', [94, 0, 0, 0, 0, 0, 0, 0, 4]),
     ('visible-enimy.png', [17, 0, 0, 0, 0, 0, 0, 0, 0]),
-    ('visible-units-by-units.png', [19, 0, 0, 0, 0, 0, 0, 0, 0])
+    ('visible-units-by-units.png', [19, 0, 88, 0, 0, 73, 88, 0, 0])
 ])
 def test_minimap_watcher(test_input, expected):
     minimap_watcher = EnemyOnMinimap()

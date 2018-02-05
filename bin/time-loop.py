@@ -10,7 +10,7 @@ sys.path = [os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')
 from sc2.utils import get_screenshot
 from sc2.mapinfo import MapInfo
 from sc2.sasayblock import SasayBlock
-from sc2.minimapwatcher import MiniMapWatcher
+from sc2.enemyonminimap import EnemyOnMinimap
 from sc2.idleworker import IdleWorker
 from sc2.checkeconomic import CheckEconomic
 from sc2.watcher import WatcherProperties
@@ -20,7 +20,7 @@ if __name__ == '__main__':
     try:
         map_info = MapInfo()
         watchers = [
-            WatcherProperties(SasayBlock, 5), WatcherProperties(MiniMapWatcher, 1), WatcherProperties(IdleWorker, 5)
+            WatcherProperties(SasayBlock, 5), WatcherProperties(EnemyOnMinimap, 1), WatcherProperties(IdleWorker, 5)
         ]
         # economic_checkers = [
         #     WatcherProperties(CheckEconomic('cc'), 30),

@@ -5,6 +5,7 @@ from sc2.watcher import Watcher
 
 class EnemyOnMinimap(Watcher):
     NAME = 'minimap watcher'
+
     LEFT = 20
     RIGHT = 275 + LEFT
     UP = 805
@@ -51,7 +52,7 @@ class EnemyOnMinimap(Watcher):
                 qudrant_count = 0
                 for z in range(start_col, start_col + one_third_part):
                     for k in range(start_el, start_el + one_third_part):
-                        qudrant_count += self.red_pixels[z][k]
+                        qudrant_count += self.red_pixels[k][z]
                 result.append(qudrant_count)
 
         self.current_values = result

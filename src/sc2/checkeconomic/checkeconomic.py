@@ -207,8 +207,8 @@ class CheckEconomic(NumberParser):
                 n.append(pixels[i])
 
     def get_missed_worker(self):
-        # [1, 2, '/', 1, 6]
-        return map(int, ''.join(self.worker_count).split('/'))
+        worked, needed = map(int, ''.join(map(str, self.worker_count)).split('/'))
+        return needed - worked
 
     def alarm(self):
         playsound(os.path.join(os.path.dirname(__file__), 'resourses', 'change_control_in_5_sec.mp3'))

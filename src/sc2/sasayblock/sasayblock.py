@@ -7,7 +7,7 @@ from sc2.utils import check_and_convert_templates
 
 class SasayBlock(NumberParser):
     NAME = 'sasayblock'
-    GAP_SIZE_BETWEEN_NUMBER_GROUP = 20
+    GAP_SIZE_BETWEEN_NUMBER_GROUP = 10
 
     LEFT = 1520
     RIGHT = 1870
@@ -180,7 +180,7 @@ class SasayBlock(NumberParser):
             else:
                 n.append(pixels[i])
                 gap_size = 0
-            if gap_size > 10 and numbers:
+            if gap_size > self.GAP_SIZE_BETWEEN_NUMBER_GROUP and numbers:
                 groups.append(numbers)
                 numbers = []
 
@@ -194,8 +194,8 @@ class SasayBlock(NumberParser):
                 playsound(os.path.join(os.path.dirname(__file__), 'resourses', 'too_many_minerals.mp3'))
             if self.gas > 500:
                 playsound(os.path.join(os.path.dirname(__file__), 'resourses', 'too_many_vespen_gas.mp3'))
-            if float(self.supply[1] - self.supply[0]) / self.supply[1] < 0.15:
-                playsound(os.path.join(os.path.dirname(__file__), 'resourses', 'sasai_block.mp3'))
+            if float(self.supply[1] - self.supply[0]) / self.supply[1] < 0.2:
+                playsound(os.path.join(os.path.dirname(__file__), 'resourses', 'sasay_block.mp3'))
 
 
 # some check and convertation for tempates

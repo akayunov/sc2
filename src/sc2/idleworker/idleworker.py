@@ -8,11 +8,11 @@ from sc2.numberparser import NumberParser
 class IdleWorker(NumberParser):
     NAME = 'idle worker'
 
-    HIGH = 10
     LEFT = 50
-    RIGHT = 300 - 220 - 52 + LEFT
+    RIGHT = 28 + LEFT
     UP = 750
-    BOTTOM = UP + HIGH + 3 - 3
+    BOTTOM = 760
+    HIGH = BOTTOM - UP
 
     COLOR_LIMITS = {
         'r': (255, 160),

@@ -11,8 +11,6 @@ class ProductionQueue(Watcher):
     UP = 880
     BOTTOM = 1060
 
-    check_points = []
-
     def __init__(self):
         self.production_queues = []
 
@@ -43,6 +41,7 @@ class ProductionQueue(Watcher):
 
         for l in range(3):  # 3 line it's rare case then thera will be more then 27 factory
             for p in range(x_start_position, self.RIGHT - self.LEFT):
+                print(region.getpixel((p, y_start_position + line_high * l)))
                 r, g, b = region.getpixel((p, y_start_position + line_high * l))
                 if r == g == b == 254:
                     current_marker = 254

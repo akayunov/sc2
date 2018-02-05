@@ -11,7 +11,10 @@ class NumberParser(Watcher):
     UP = 0
     BOTTOM = 0
 
-    HIGH = 0
+    WEIGHT_ZERO_MATCH = 1
+    WEIGHT_ONE_MATCH = 1.3
+
+    HIGH = UP - BOTTOM
     COLOR_LIMITS = {
         'r': (0, 0),
         'g': (0, 0),
@@ -53,7 +56,7 @@ class NumberParser(Watcher):
         for i in range(min(len(got_number_array), len(templ))):
             for k in range(min(len(got_number_array[0]), len(templ[0]))):
                 if got_number_array[i][k] == templ[i][k]:
-                    similarity += 1 if got_number_array[i][k] == 0 else 1.3  # add weight for 1
+                    similarity += self.WEIGHT_ZERO_MATCH if got_number_array[i][k] == 0 else self.WEIGHT_ONE_MATCH  # add weight for 1
 
         # check with shift if sizes is not equal
         n_templ = deepcopy(templ)
@@ -66,7 +69,7 @@ class NumberParser(Watcher):
             for i in range(min(len(got_number_array), len(n_templ))):
                 for k in range(min(len(got_number_array[0]), len(n_templ[0]))):
                     if got_number_array[i][k] == n_templ[i][k]:
-                        similarity_intermediate += 1 if got_number_array[i][k] == 0 else 1.3  # add weight for 1
+                        similarity_intermediate += self.WEIGHT_ZERO_MATCH if got_number_array[i][k] == 0 else self.WEIGHT_ONE_MATCH  # add weight for 1
             if similarity_intermediate > similarity:
                 similarity = similarity_intermediate
 

@@ -59,13 +59,13 @@ def test_map_info(test_input, expected, expected_group, input_coordinates, expec
     map_info.alarm()
     assert map_info.name() == 'map info'
 
+
 # TODO implement it
-# def test_map_info_full_map():
-#     map_info2 = MapInfo()
-#     map_info2.parse_regions(Image.open(os.path.dirname(__file__) + '/resourses/' + 'full_map.png'))
-#
-#     print(map_info2.expand_groups)
-#     map_info.alarm()
+def map_info_full_map():
+    map_info2 = MapInfo()
+    map_info2.parse_regions(Image.open(os.path.dirname(__file__) + '/resourses/' + 'full_map.png'))
+    print(map_info2.expand_groups)
+    map_info2.alarm()
 
 
 @pytest.mark.xfail
