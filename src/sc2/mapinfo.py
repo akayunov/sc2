@@ -131,7 +131,7 @@ class MapInfo(object):
         elif item_type == 'gaz_to_gaz':
             return max([abs(item_1_gaz[0] - item_2_mineral[0]) - 6, abs(item_1_gaz[1] - item_2_mineral[1]) - 6])
         else:
-            raise Exception('Unknown resourses type')
+            raise Exception('Unknown resourses type')  # pragma: no cover
 
     def get_nearest_exp_resourses_group(self, x, y):
         x = x - self.LEFT

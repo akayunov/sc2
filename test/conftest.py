@@ -13,8 +13,8 @@ def mock_play_sound(path):
 playsound.playsound = mock_play_sound
 
 
-# TODO learn how to test with GUI on travis CI
-class MockException(Exception): pass
+class MockException(Exception):
+    pass
 
 
 class KeyBoardMock(object):
@@ -63,6 +63,7 @@ class MouseMock(object):
 
     def get_position(self):
         return self.get_positions.pop(0)
+
 
 class KeyBoardEvent(object):
     def __init__(self, name):

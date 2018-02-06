@@ -3,7 +3,7 @@ import os
 import pytest
 from PIL import Image
 
-from sc2.keyeventcommand2 import KeyEventCommand
+from sc2.keyeventcommand import KeyEventCommand
 from sc2.mapinfo import MapInfo
 
 
@@ -59,7 +59,10 @@ def test_key_event_command_siege_tank(mouse_mock, keyboard_mock, keyevent_mock):
     assert keyboard_mock.send_buttons == ['ctrl+9', 'alt+8', 'shift', 'e', 'shift', '9', 'alt+8', 'shift', 'e', 'shift', '9']
     assert keyboard_mock.hotkeys == set(['`', 'w', 'z+c', 'z+x'])
 
-    assert len(kec.threads_flags[kec.hotkey_send_command_to_units_by_one_for_resiege_tanks]) == 1 and re.match(r'\d+', str(kec.threads_flags[kec.hotkey_send_command_to_units_by_one_for_resiege_tanks][0]))
+    assert (
+        len(kec.threads_flags[kec.hotkey_send_command_to_units_by_one_for_resiege_tanks]) == 1 and
+        re.match(r'\d+', str(kec.threads_flags[kec.hotkey_send_command_to_units_by_one_for_resiege_tanks][0]))
+    )
     assert kec.threads_flags[kec.hotkey_occupy_expand] == []
     assert kec.threads_flags[kec.hotkey_send_command_to_units_by_one] == []
     assert kec.threads_flags[kec.hotkey_build_svc] == []
@@ -123,6 +126,5 @@ def test_key_event_command_expand(mouse_mock, keyboard_mock, keyevent_mock):
     keyevent_mock.name = 'z'
     kec.turn_off_threads_flags(keyevent_mock)
     assert kec.threads_flags[kec.hotkey_occupy_expand] == []
-
 
     assert keyboard_mock.hotkeys == set(['`', 'w', 'z+c', 'z+x'])
