@@ -7,7 +7,7 @@ def test_print_debug():
 
 
 def test_convert_templates():
-    class Templ1(object):
+    class Templ1:
         HIGH = 10
 
         TEMPLATES = {
@@ -30,7 +30,7 @@ def test_convert_templates():
     with pytest.raises(Exception, match=r'High template is wrong.*'):
         check_and_convert_templates(Templ1)
 
-    class Templ2(object):
+    class Templ2:
         HIGH = 10
 
         TEMPLATES = {

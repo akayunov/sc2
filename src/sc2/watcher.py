@@ -4,7 +4,7 @@ import traceback
 from sc2.utils import get_screenshot
 
 
-class Watcher(object):
+class Watcher:
     __metaclass__ = abc.ABCMeta
 
     @abc.abstractproperty
@@ -24,7 +24,7 @@ class Watcher(object):
         raise NotImplementedError()  # pragma: no cover
 
 
-class WatcherProperties(object):
+class WatcherProperties:
     def __init__(self, watcher, initial_alarm_period=0):
         self.watcher = watcher
         self.initial_alarm_period = initial_alarm_period

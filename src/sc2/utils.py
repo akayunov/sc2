@@ -4,7 +4,7 @@ import sys
 try:
     from PIL import ImageGrab
 except ImportError:
-    class ImageGrab(object):
+    class ImageGrab:
         @staticmethod
         def grab():
             return Image.new('RGB', (100, 100), (255, 255, 255))

@@ -3,7 +3,7 @@ from copy import deepcopy
 from functools import partial
 
 
-class MapInfo(object):
+class MapInfo:
     NAME = 'map info'
     # TODO improve for diff screen resolution
     LEFT = 20

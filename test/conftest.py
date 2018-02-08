@@ -17,7 +17,7 @@ class MockException(Exception):
     pass
 
 
-class KeyBoardMock(object):
+class KeyBoardMock:
     def __init__(self):
         self.combination = ''
         self.send_buttons = []
@@ -45,7 +45,7 @@ class KeyBoardMock(object):
         self.send_buttons.append(button)
 
 
-class MouseMock(object):
+class MouseMock:
     def __init__(self):
         self.wait_buttons = []
         self.move_coordinates = []
@@ -65,7 +65,7 @@ class MouseMock(object):
         return self.get_positions.pop(0)
 
 
-class KeyBoardEvent(object):
+class KeyBoardEvent:
     def __init__(self, name):
         self.name = name
 
