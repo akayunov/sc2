@@ -1,7 +1,6 @@
 import keyboard
 import mouse
 import threading
-import thread
 import time
 from sc2.sasayblock import SasayBlock
 from sc2.utils import get_screenshot
@@ -53,8 +52,8 @@ class KeyEventCommand:
 
     def occupy_expand(self, hotkey):
         # recreate thread for next run
-        # thread.get_ident() can be recycled by new thread but is doesn't matter because we always reinitialize it
-        self.threads_flags[hotkey].append(thread.get_ident())
+        # threading.get_ident() can be recycled by new thread but is doesn't matter because we always reinitialize it
+        self.threads_flags[hotkey].append(threading.get_ident())
         keyboard.remove_hotkey(hotkey)
         keyboard.add_hotkey(hotkey, threading.Thread(target=self.occupy_expand, args=(hotkey,)).start)
 
@@ -69,7 +68,7 @@ class KeyEventCommand:
         keyboard.send('b,c')
 
         mouse.wait()  # build cc
-        if not thread.get_ident() in self.threads_flags[hotkey]:
+        if not threading.get_ident() in self.threads_flags[hotkey]:
             return
 
         # TODO move worker which build cc to minerals
@@ -85,13 +84,13 @@ class KeyEventCommand:
             keyboard.send('b,r')
 
             mouse.wait()  # build gaz
-            if not thread.get_ident() in self.threads_flags[hotkey]:
+            if not threading.get_ident() in self.threads_flags[hotkey]:
                 return
 
     def build_scv(self, hotkey):
         # recreate thread for next run
-        # thread.get_ident() can be recycled by new thread but is doesn't matter because we always reinitialize it
-        self.threads_flags[hotkey].append(thread.get_ident())
+        # threading.get_ident() can be recycled by new thread but is doesn't matter because we always reinitialize it
+        self.threads_flags[hotkey].append(threading.get_ident())
         keyboard.remove_hotkey(hotkey)
         keyboard.add_hotkey(hotkey, threading.Thread(target=self.build_scv, args=(hotkey,)).start)
 
@@ -139,16 +138,16 @@ class KeyEventCommand:
 
     def send_command_to_units_by_one(self, hotkey, command):
         # recreate thread for next run
-        # thread.get_ident() can be recycled by new thread but is doesn't matter because we always reinitialize it
-        self.threads_flags[hotkey].append(thread.get_ident())
+        # threading.get_ident() can be recycled by new thread but is doesn't matter because we always reinitialize it
+        self.threads_flags[hotkey].append(threading.get_ident())
         keyboard.remove_hotkey(hotkey)
         keyboard.add_hotkey(hotkey, threading.Thread(target=self.send_command_to_units_by_one, args=(hotkey, command)).start)
 
         # move units to group 9
         keyboard.send('ctrl+9')
-        while thread.get_ident() in self.threads_flags[hotkey]:
+        while threading.get_ident() in self.threads_flags[hotkey]:
             mouse.wait(button='left', target_types=('up',))
-            if not thread.get_ident() in self.threads_flags[hotkey]:
+            if not threading.get_ident() in self.threads_flags[hotkey]:
                 break
             mouse_position_x, mouse_position_y = mouse.get_position()
 

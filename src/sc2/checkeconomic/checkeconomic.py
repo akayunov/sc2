@@ -199,7 +199,7 @@ class CheckEconomic(NumberParser):
         pixels = self._get_pixels(image)
         n = []
         for i, col in enumerate(pixels):
-            if not filter(None, pixels[i]):
+            if not [k for k in pixels[i] if bool(k)]:
                 if n:
                     self.worker_count.append(self._parse_numbers(n))
                 n = []

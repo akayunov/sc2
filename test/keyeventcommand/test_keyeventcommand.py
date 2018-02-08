@@ -115,7 +115,7 @@ def test_key_event_command_expand(mouse_mock, keyboard_mock, keyevent_mock):
     kec.occupy_expand(kec.hotkey_occupy_expand)
 
     assert keyboard_mock.send_buttons == ['0', 'b,c', '0', 'b,r', '0', 'b,r']
-    assert mouse_mock.move_coordinates == [(162, 1016), (960, 540), (169, 1010), (960, 540), (169, 1003), (960, 540)]
+    assert mouse_mock.move_coordinates == [(161, 1015), (960.0, 540.0), (169, 1010), (960.0, 540.0), (169, 1003), (960.0, 540.0)]
     assert mouse_mock.click_buttons == ['left', 'left', 'left']
 
     assert len(kec.threads_flags[kec.hotkey_occupy_expand]) == 1 and re.match(r'\d+', str(kec.threads_flags[kec.hotkey_occupy_expand][0]))

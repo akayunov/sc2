@@ -2,14 +2,12 @@ from PIL import Image
 import sys
 
 try:
-    import pyautogui
+    from PIL import ImageGrab
 except ImportError:
-    class pyautogui(object):
+    class ImageGrab:
         @staticmethod
-        def _screenshot():
+        def grab():
             return Image.new('RGB', (100, 100), (255, 255, 255))
-
-        screenshot = _screenshot
 
 
 def print_debug(pixels_):
@@ -20,7 +18,7 @@ def print_debug(pixels_):
 
 
 def get_screenshot():
-    return pyautogui.screenshot()
+    return ImageGrab.grab()
 
 
 def convert_by_diag(high, a):
