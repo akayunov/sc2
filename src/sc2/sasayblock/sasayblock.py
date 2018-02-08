@@ -171,7 +171,7 @@ class SasayBlock(NumberParser):
         n = []
         gap_size = 0
         for i, col in enumerate(pixels):
-            if not filter(None, pixels[i]):
+            if not [k for k in pixels[i] if bool(k)]:
                 # find empty gap
                 gap_size += 1
                 if n:

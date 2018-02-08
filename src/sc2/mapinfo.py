@@ -97,7 +97,7 @@ class MapInfo(object):
                     if min(map(partial(self.distance, 'mineral_to_mineral', mineral_comparision), group)) < 5:
                         item_was_added = 1
                         group.append(mineral_comparision)
-                minerals = filter(lambda x: x not in group, minerals)
+                minerals = [i for i in minerals if i not in group]
             self.expand_groups.append({'minerals': group, 'gazes': []})
 
         i = 0
@@ -116,7 +116,7 @@ class MapInfo(object):
                         group['gazes'].append(gaze_base)
                         item_was_added = 1
                         break
-                gazes = filter(lambda x: x not in group['gazes'], gazes)
+                gazes = [i for i in gazes if i not in group['gazes']]
 
     @staticmethod
     def distance(item_type, item_1_gaz, item_2_mineral):
