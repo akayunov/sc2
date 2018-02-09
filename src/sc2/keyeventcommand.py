@@ -152,4 +152,5 @@ class KeyEventCommand:
                 # choose remaining units
                 keyboard.send('9')
         finally:
+            # TODO move it to decorator
             keyboard.add_hotkey(hotkey, threading.Thread(target=self.send_command_to_units_by_one, args=(hotkey, command)).start)
