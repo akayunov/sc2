@@ -3,6 +3,7 @@ import mouse
 import threading
 import time
 from sc2.sasayblock import SasayBlock
+from sc2.grouphealth import GroupHealth
 from sc2.utils import get_screenshot
 from sc2.const import RESOLUTION
 
@@ -16,12 +17,14 @@ class KeyEventCommand:
         # TODO don't need two hot key for unit and for tanks
         self.hotkey_send_command_to_units_by_one = '`'
         self.hotkey_send_command_to_units_by_one_for_resiege_tanks = 'w'
+        self.hotkey_retreat_units = 'z+v'
 
 
         self.scv_building_time = 12
         self.threads_flags = {
             self.hotkey_send_command_to_units_by_one: [],
             self.hotkey_send_command_to_units_by_one_for_resiege_tanks: [],
+            self.hotkey_retreat_units: [],
         }
         keyboard.on_release(self.turn_off_threads_flags)
 
@@ -29,6 +32,7 @@ class KeyEventCommand:
         self.add_hotkey(self.hotkey_occupy_expand, target=self.occupy_expand, args=(), timeout=1)
         self.add_hotkey(self.hotkey_build_svc, target=self.build_scv, args=(), timeout=1)
         # move commads
+        self.add_hotkey(self.hotkey_retreat_units, target=self.retreat_by_pierced_units, args=(), timeout=1)
         self.add_hotkey(self.hotkey_send_command_to_units_by_one, target=self.send_command_to_units_by_one, args=(self.move_unit_command,), timeout=1)
         self.add_hotkey(self.hotkey_send_command_to_units_by_one_for_resiege_tanks, target=self.send_command_to_units_by_one, args=(self.re_seige_tanks,), timeout=1)
 
@@ -125,7 +129,6 @@ class KeyEventCommand:
         keyboard.release('shift')
 
     def send_command_to_units_by_one(self, hotkey, command):
-        # recreate thread for next run
         # threading.get_ident() can be recycled by new thread but is doesn't matter because we always reinitialize it
         try:
             self.threads_flags[hotkey].append(threading.get_ident())
@@ -152,4 +155,51 @@ class KeyEventCommand:
                 keyboard.send('9')
         finally:
             # TODO move it to decorator
+            # recreate thread for next run
             keyboard.add_hotkey(hotkey, threading.Thread(target=self.send_command_to_units_by_one, args=(hotkey, command)).start)
+
+    def retreat_by_pierced_units(self, hotkey):
+        # threading.get_ident() can be recycled by new thread but is doesn't matter because we always reinitialize it
+        try:
+            self.threads_flags[hotkey].append(threading.get_ident())
+            keyboard.remove_hotkey(hotkey)
+
+            # get position of retreat
+            mouse.wait(button='left', target_types=('up',))
+            retreat_position_x, retreat_position_y = mouse.get_position()
+            if not threading.get_ident() in self.threads_flags[hotkey]:
+                return
+            gh = GroupHealth()
+            # move units to group 9
+            keyboard.send('ctrl+9')
+            image = get_screenshot()
+            subgroup_info = gh.get_subgroup_count(image)
+            time.sleep(0.5)
+            while threading.get_ident() in self.threads_flags[hotkey]:
+                keyboard.send('9')
+                for subgroup_number in subgroup_info:  # cycle by subgroups
+                    if subgroup_number > 0:
+                        image = get_screenshot()
+                    # choose subgroup
+                    mouse.move(subgroup_info[subgroup_number][0], subgroup_info[subgroup_number][1])
+                    mouse.click()
+
+                    gh.parse_regions(image)
+                    atack_position_x, atack_position_y = mouse.get_position()
+                    for unit in gh.units['yellow']:
+                        # click on unit
+                        mouse.move(unit[0], unit[1])
+                        mouse.click()
+                        # remove unit from group
+                        keyboard.send('alt+8')
+                        keyboard.press('shift')
+                        mouse.move(retreat_position_x, retreat_position_y)
+                        mouse.click(button='right')
+                        mouse.move(atack_position_x, atack_position_y)
+                        keyboard.send('a')
+                        mouse.click()
+                        keyboard.release('shift')
+        finally:
+            # TODO move it to decorator
+            # recreate thread for next run
+            keyboard.add_hotkey(hotkey, threading.Thread(target=self.retreat_by_pierced_units, args=(hotkey,)).start)

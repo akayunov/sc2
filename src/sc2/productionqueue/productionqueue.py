@@ -6,8 +6,8 @@ from sc2.watcher import Watcher
 
 class ProductionQueue(Watcher):
     NAME = 'production queue'
-    LEFT = 370
-    RIGHT = 1360
+    LEFT = 370  # TODO too left ~ 660 is needed
+    RIGHT = 1360  # TODO too right ~ 1120 is needed
     UP = 880
     BOTTOM = 1060
 
@@ -41,7 +41,6 @@ class ProductionQueue(Watcher):
 
         for l in range(3):  # 3 line it's rare case then thera will be more then 27 factory
             for p in range(x_start_position, self.RIGHT - self.LEFT):
-                print(region.getpixel((p, y_start_position + line_high * l)))
                 r, g, b = region.getpixel((p, y_start_position + line_high * l))
                 if r == g == b == 254:
                     current_marker = 254

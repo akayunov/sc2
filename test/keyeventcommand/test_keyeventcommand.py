@@ -13,8 +13,9 @@ def test_key_event_command_initialization(keyboard_mock):
     assert kec.threads_flags == {
         kec.hotkey_send_command_to_units_by_one: [],
         kec.hotkey_send_command_to_units_by_one_for_resiege_tanks: [],
+        kec.hotkey_retreat_units: []
     }
-    assert keyboard_mock.hotkeys == set(['`', 'w', 'z+m', 'z+x'])
+    assert keyboard_mock.hotkeys == set(['`', 'w', 'z+m', 'z+x', 'z+v'])
 
 
 def test_key_event_command_move(mouse_mock, keyboard_mock, keyevent_mock):
@@ -30,7 +31,7 @@ def test_key_event_command_move(mouse_mock, keyboard_mock, keyevent_mock):
     assert mouse_mock.move_coordinates == [(700, 900), (0, 0), (700, 900), (1, 1)]
     assert keyboard_mock.send_buttons == ['ctrl+9', 'alt+8', '9', 'alt+8', '9']
 
-    assert keyboard_mock.hotkeys == set(['`', 'w', 'z+m', 'z+x'])
+    assert kec.hotkey_send_command_to_units_by_one in keyboard_mock.hotkeys
 
     assert len(kec.threads_flags[kec.hotkey_send_command_to_units_by_one]) == 1 and re.match(r'\d+', str(kec.threads_flags[kec.hotkey_send_command_to_units_by_one][0]))
     assert kec.threads_flags[kec.hotkey_send_command_to_units_by_one_for_resiege_tanks] == []
@@ -53,7 +54,7 @@ def test_key_event_command_siege_tank(mouse_mock, keyboard_mock, keyevent_mock):
     assert mouse_mock.click_buttons == ['left', 'right', 'left', 'right']
     assert mouse_mock.move_coordinates == [(700, 900), (0, 0), (700, 900), (1, 1)]
     assert keyboard_mock.send_buttons == ['ctrl+9', 'alt+8', 'shift', 'e', 'shift', '9', 'alt+8', 'shift', 'e', 'shift', '9']
-    assert keyboard_mock.hotkeys == set(['`', 'w', 'z+m', 'z+x'])
+    assert kec.hotkey_send_command_to_units_by_one_for_resiege_tanks in keyboard_mock.hotkeys
 
     assert (
         len(kec.threads_flags[kec.hotkey_send_command_to_units_by_one_for_resiege_tanks]) == 1 and
@@ -92,7 +93,7 @@ def test_key_event_command_scv(keyboard_mock, keyevent_mock):
     keyevent_mock.name = 'z'
     kec.turn_off_threads_flags(keyevent_mock)
 
-    assert keyboard_mock.hotkeys == set(['`', 'w', 'z+m', 'z+x'])
+    assert kec.hotkey_build_svc in keyboard_mock.hotkeys
 
 
 def test_key_event_command_expand(mouse_mock, keyboard_mock, keyevent_mock):
@@ -115,4 +116,14 @@ def test_key_event_command_expand(mouse_mock, keyboard_mock, keyevent_mock):
     keyevent_mock.name = 'z'
     kec.turn_off_threads_flags(keyevent_mock)
 
-    assert keyboard_mock.hotkeys == set(['`', 'w', 'z+m', 'z+x'])
+    assert kec.hotkey_occupy_expand in keyboard_mock.hotkeys
+
+
+def test_retreat_by_pierced_units(mouse_mock, keyboard_mock, keyevent_mock):
+    mouse_mock.wait_buttons = ['left']
+    mouse_mock.get_positions = [(1, 1), (100, 100)]
+
+    map_info = MapInfo()
+    map_info.parse_regions(Image.open(os.path.dirname(__file__) + '/resourses/' + 'full_map.png'))
+
+    kec = KeyEventCommand(map_info)
