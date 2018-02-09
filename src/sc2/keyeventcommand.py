@@ -73,7 +73,6 @@ class KeyEventCommand:
                 mouse.wait()  # build gaz
                 keyboard.send('esc')
         finally:
-            keyboard.send('esc')  # if I want to built not all building I need to pass first and send esc to second and third worker
             # recreate thread for next run
             keyboard.add_hotkey(hotkey, threading.Thread(target=self.occupy_expand, args=(hotkey,)).start)
 
