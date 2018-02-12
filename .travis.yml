@@ -15,7 +15,7 @@ before_script:
 script:
   - cd ~/sc2
   - python --version
-  - python bin/coverage-report.py
+  - python test/coverage-report.py
 
 after_success:
   - coveralls
