@@ -1,8 +1,8 @@
 import subprocess
 import os.path
 
-bin_dir = os.path.dirname(os.path.realpath(__file__))
-src_dir = os.path.dirname(bin_dir)
+test_dir = os.path.dirname(os.path.realpath(__file__))  # test
+src_dir = os.path.dirname(test_dir)
 tmp_dir = os.path.join(src_dir, 'tmp')
 
 pytest_path = 'pytest' if not os.path.isdir(src_dir + '/v') else 'v/bin/pytest'
