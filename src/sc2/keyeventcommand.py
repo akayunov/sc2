@@ -1,7 +1,8 @@
-import keyboard
-import mouse
 import threading
 import time
+import keyboard
+import mouse
+
 from sc2.sasayblock import SasayBlock
 from sc2.grouphealth import GroupHealth
 from sc2.utils import get_screenshot
@@ -18,7 +19,6 @@ class KeyEventCommand:
         self.hotkey_send_command_to_units_by_one = '`'
         self.hotkey_send_command_to_units_by_one_for_resiege_tanks = 'w'
         self.hotkey_retreat_units = 'z+v'
-
 
         self.scv_building_time = 12
         self.threads_flags = {
@@ -64,7 +64,7 @@ class KeyEventCommand:
             keyboard.send('esc')
 
             # TODO move worker which build cc to minerals
-            for i, gaz in enumerate(resourses_group['gazes']):
+            for gaz in resourses_group['gazes']:
                 new_mouse_position_x, new_mouse_position_y = self.map_info.get_item_coordinate_on_whole_screen(gaz)
                 time.sleep(0.1)
                 mouse.move(new_mouse_position_x, new_mouse_position_y)  # move by minimap
@@ -103,7 +103,7 @@ class KeyEventCommand:
 
                 keyboard.send('ctrl+9')  # add curent selected to 0, for returning back
                 keyboard.send('6')
-                for i in range(min(worker_can_be_order_by_this_mineral_count, worker_needed)):
+                for _ in range(min(worker_can_be_order_by_this_mineral_count, worker_needed)):
                     worker_counter -= 1
                     keyboard.send('s')
                     if worker_counter <= 0:

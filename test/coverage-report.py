@@ -1,22 +1,22 @@
 import subprocess
 import os.path
 
-test_dir = os.path.dirname(os.path.realpath(__file__))  # test
-src_dir = os.path.dirname(test_dir)
-tmp_dir = os.path.join(src_dir, 'tmp')
+TEST_DIR = os.path.dirname(os.path.realpath(__file__))  # test
+SRC_DIR = os.path.dirname(TEST_DIR)
+TMP_DIR = os.path.join(SRC_DIR, 'tmp')
 
-pytest_path = 'pytest' if not os.path.isdir(src_dir + '/v') else 'v/bin/pytest'
+PYTEST_PATH = 'pytest' if not os.path.isdir(SRC_DIR + '/v') else 'v/bin/pytest'
 
 subprocess.call([
-    os.path.join(pytest_path),
-    '--cov-config', os.path.join(src_dir, '.coveragerc'),
-    '--cov', os.path.join(src_dir, 'src'),
-    '--cov', os.path.join(src_dir, 'test'),
-    '--cov-report', 'html:' + tmp_dir + '/cov_html',
-    os.path.join(src_dir, 'test')]
-)
+    os.path.join(PYTEST_PATH),
+    '--cov-config', os.path.join(SRC_DIR, '.coveragerc'),
+    '--cov', os.path.join(SRC_DIR, 'src'),
+    '--cov', os.path.join(SRC_DIR, 'test'),
+    '--cov-report', 'html:' + TMP_DIR + '/cov_html',
+    os.path.join(SRC_DIR, 'test')]
+               )
 
-if os.path.isdir(src_dir + '/v'):
+if os.path.isdir(SRC_DIR + '/v'):
     try:
         os.unlink('.coverage')
     except OSError as e:

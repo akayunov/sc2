@@ -1,7 +1,7 @@
+import argparse
 import traceback
 import time
 import keyboard
-import argparse
 
 from sc2.utils import get_screenshot
 from sc2.mapinfo import MapInfo

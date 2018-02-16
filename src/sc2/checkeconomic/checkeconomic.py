@@ -154,7 +154,7 @@ class CheckEconomic(NumberParser):
             '01000000',
             '10000000'
         ], 'square': 80
-        }
+             }
     }
 
     def __init__(self, build_type):
@@ -186,9 +186,9 @@ class CheckEconomic(NumberParser):
                 r, g, b = region.getpixel((i, k))
                 if (
                         # white
-                            (200 >= r >= 160 and 200 >= g >= 160 and 200 >= b >= 160) or
+                        (200 >= r >= 160 and 200 >= g >= 160 and 200 >= b >= 160) or
                         # red
-                            (195 >= r >= 190 and 40 >= g >= 30 and 40 >= b >= 30)
+                        (195 >= r >= 190 and 40 >= g >= 30 and 40 >= b >= 30)
                 ):
                     pixels[i][k] = 1
                 else:
@@ -198,7 +198,7 @@ class CheckEconomic(NumberParser):
     def parse_regions(self, image):
         pixels = self._get_pixels(image)
         n = []
-        for i, col in enumerate(pixels):
+        for i, _ in enumerate(pixels):
             if not [k for k in pixels[i] if bool(k)]:
                 if n:
                     self.worker_count.append(self._parse_numbers(n))

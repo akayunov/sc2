@@ -155,7 +155,7 @@ class SasayBlock(NumberParser):
             '010000000',
             '100000000'
         ], 'square': 90
-        }
+             }
     }
 
     def __init__(self):
@@ -170,7 +170,7 @@ class SasayBlock(NumberParser):
         groups = []
         n = []
         gap_size = 0
-        for i, col in enumerate(pixels):
+        for i, _ in enumerate(pixels):
             if not [k for k in pixels[i] if bool(k)]:
                 # find empty gap
                 gap_size += 1

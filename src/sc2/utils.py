@@ -1,5 +1,5 @@
-from PIL import Image
 import sys
+from PIL import Image
 
 try:
     from PIL import ImageGrab
@@ -11,8 +11,8 @@ except ImportError:
 
 
 def print_debug(pixels_):
-    for ii in range(len(pixels_[0])):
-        for kk in range(len(pixels_)):
+    for ii, _ in enumerate((pixels_[0])):
+        for kk, _ in enumerate(pixels_):
             sys.stdout.write(str(pixels_[kk][ii]))
         sys.stdout.write('\n')
 

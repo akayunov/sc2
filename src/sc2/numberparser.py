@@ -25,9 +25,6 @@ class NumberParser(Watcher):
     def __init__(self):
         pass
 
-    def name(self):
-        raise NotImplementedError()  # pragma: no cover
-
     def image_is_needed(self):
         return True
 
@@ -43,9 +40,11 @@ class NumberParser(Watcher):
         for i in range(self.RIGHT - self.LEFT):
             for k in range(self.BOTTOM - self.UP):
                 r, g, b = region.getpixel((i, k))
-                if (self.COLOR_LIMITS['r'][0] >= r >= self.COLOR_LIMITS['r'][1] and
-                                self.COLOR_LIMITS['g'][0] >= g >= self.COLOR_LIMITS['g'][1] and
-                                self.COLOR_LIMITS['b'][0] >= b >= self.COLOR_LIMITS['b'][1]):
+                if (
+                                        self.COLOR_LIMITS['r'][0] >= r >= self.COLOR_LIMITS['r'][1] and
+                                        self.COLOR_LIMITS['g'][0] >= g >= self.COLOR_LIMITS['g'][1] and
+                                        self.COLOR_LIMITS['b'][0] >= b >= self.COLOR_LIMITS['b'][1]
+                ):
                     pixels[i][k] = 1
                 else:
                     pixels[i][k] = 0
@@ -84,7 +83,7 @@ class NumberParser(Watcher):
                 result = [similarity, num_templ]
         return result[1]
 
-    def parse_regions(self, im):
+    def parse_regions(self, image):
         raise NotImplementedError()  # pragma: no cover
 
     def alarm(self):

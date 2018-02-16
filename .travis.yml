@@ -15,6 +15,9 @@ before_script:
 script:
   - cd ~/sc2
   - python --version
+  - pytest . --flakes
+  - pytest . --pep8 -m pep8
+  - pytest . --pylint
   - python test/coverage-report.py
 
 after_success:

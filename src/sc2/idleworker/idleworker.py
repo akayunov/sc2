@@ -139,7 +139,7 @@ class IdleWorker(NumberParser):
     def parse_regions(self, image):
         pixels = self._get_pixels(image)
         n = []
-        for i, col in enumerate(pixels):
+        for i, _ in enumerate(pixels):
             if not [k for k in pixels[i] if bool(k)]:
                 if n:
                     self.worker_count.append(self._parse_numbers(n))

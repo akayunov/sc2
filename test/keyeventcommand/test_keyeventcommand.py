@@ -126,4 +126,4 @@ def test_retreat_by_pierced_units(mouse_mock, keyboard_mock, keyevent_mock):
     map_info = MapInfo()
     map_info.parse_regions(Image.open(os.path.dirname(__file__) + '/resourses/' + 'full_map.png'))
 
-    kec = KeyEventCommand(map_info)
+    # kec = KeyEventCommand(map_info)

@@ -26,7 +26,8 @@ class GroupHealth:
     def name(self):
         return self.NAME
 
-    def image_is_needed(self):
+    @staticmethod
+    def image_is_needed():
         return True
 
     def get_subgroup_count(self, image):

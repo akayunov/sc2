@@ -60,7 +60,7 @@ class MapInfo:
             # only for gasez because mineral can have a common border see test two-expand.png
             if size == 5:
                 for xi in range(x, x + size + 1):
-                    for yi in range(y, y + size + 1 ):
+                    for yi in range(y, y + size + 1):
                         self.blue_pixels[xi][yi] = 0
 
             return True
@@ -202,12 +202,12 @@ class MapInfo:
         center_coordinates = ((max_x - min_x) / 2, (max_y - min_y) / 2)
         # print('CENTER',center_coordinates)
         result = (1000000, (0, 0))
-        for i in range(len(mineral_field)):
-            for k in range(len(mineral_field[i])):
+        for i, _ in enumerate(mineral_field):
+            for k, _ in enumerate(mineral_field[i]):
                 if mineral_field[i][k] == 1:
                     distance = math.sqrt((i - center_coordinates[0]) ** 2 + (k - center_coordinates[1]) ** 2)
                     # print('DISTANEC', distance, i, k)
-                    if distance  <= result[0]:
+                    if distance <= result[0]:
                         result = (distance, (i, k))
         # print('RESULT',result)
         return result[1][0] + min_x + self.LEFT, result[1][0] + min_y + self.UP

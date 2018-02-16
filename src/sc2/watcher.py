@@ -7,9 +7,10 @@ from sc2.utils import get_screenshot
 class Watcher:
     __metaclass__ = abc.ABCMeta
 
-    @abc.abstractproperty
+    NAME = 'watcher'
+
     def name(self):
-        raise NotImplementedError()  # pragma: no cover
+        return self.NAME
 
     @abc.abstractmethod
     def parse_regions(self, image):
