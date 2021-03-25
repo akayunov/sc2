@@ -27,7 +27,7 @@ pytest-pep8==1.0.6
 pytest-pylint==0.8.0
 pytest-pythonpath==0.7.1
 python-coveralls==2.9.1
-PyYAML==3.12
+PyYAML==5.4
 requests==2.18.4
 six==1.11.0
 urllib3==1.22
